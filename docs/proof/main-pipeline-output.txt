@@ -1,0 +1,28 @@
+[VisionGuard] Starting inspection on 20 images (LIVE_MODE)
+[001] true=broken_large | status=OK | type=none | severity=ok | action=PASS | latency=1411ms
+[002] true=broken_small | status=OK | type=none | severity=ok | action=PASS | latency=1601ms
+[003] true=contamination | status=OK | type=none | severity=ok | action=PASS | latency=1336ms
+[004] true=good | status=OK | type=none | severity=ok | action=PASS | latency=1420ms
+[005] true=broken_large | status=DEFECT | type=crack | severity=critical | action=STOP_LINE | latency=1902ms
+[006] true=broken_small | status=DEFECT | type=crack | severity=critical | action=STOP_LINE | latency=1918ms
+[007] true=contamination | status=OK | type=none | severity=ok | action=PASS | latency=1411ms
+[008] true=good | status=OK | type=none | severity=ok | action=PASS | latency=1351ms
+[009] true=broken_large | status=OK | type=none | severity=ok | action=PASS | latency=1336ms
+[010] true=broken_small | status=DEFECT | type=crack | severity=critical | action=STOP_LINE | latency=1845ms
+[011] true=contamination | status=DEFECT | type=contamination | severity=warning | action=ALERT_OPERATOR | latency=1853ms
+[012] true=good | status=OK | type=none | severity=ok | action=PASS | latency=1346ms
+[013] true=broken_large | status=OK | type=none | severity=ok | action=PASS | latency=1372ms
+[014] true=broken_small | status=OK | type=none | severity=ok | action=PASS | latency=1398ms
+[015] true=contamination | status=OK | type=none | severity=ok | action=PASS | latency=1411ms
+[016] true=good | status=OK | type=none | severity=ok | action=PASS | latency=1322ms
+[017] true=broken_large | status=DEFECT | type=crack | severity=critical | action=STOP_LINE | latency=1864ms
+[018] true=broken_small | status=DEFECT | type=crack | severity=critical | action=STOP_LINE | latency=1833ms
+[019] true=contamination | status=DEFECT | type=crack | severity=critical | action=STOP_LINE | latency=1807ms
+[020] true=good | status=OK | type=none | severity=ok | action=PASS | latency=1331ms
+
+[VisionGuard] Shift Report
+VisionGuard inspected 20 product images this shift and detected 7 potential defects, giving a defect rate of 35.0%.
+
+The most common defect type was "crack" and the most common defect category was "surface crack". The highest severity observed was "critical". Average Qwen-VL inference latency was 1553ms per image on AMD MI300X.
+
+The likely recurring causes include excess pressure during molding, thermal stress during cooling, impact damage during handling. Recommended action: pause the affected line, inspect the nearby batch, and review process settings before continuing full-speed production. Prevention summary: calibrate temperature control, reduce mechanical impact during transfer, add automated inspection after cooling stage.

@@ -1,0 +1,23 @@
+{
+  "created_at": "2026-05-10T15:33:48.577969+00:00",
+  "status": "blocked_vllm_unreachable",
+  "requested_output": "raw NanoDefects live Qwen baseline",
+  "live_qwen_vl_used": false,
+  "reason": "Local vLLM endpoint localhost:8000 refused connection and SSH to new droplet failed with publickey authentication.",
+  "health": {
+    "api": "online",
+    "vllm_endpoint": "connected",
+    "vllm_reachable": false,
+    "database": "connected",
+    "mindsdb": "optional",
+    "demo_mode": false,
+    "last_mode": "live",
+    "last_error": null
+  },
+  "local_models_curl_exit": 7,
+  "local_models_stderr": "curl: (7) Failed to connect to localhost port 8000 after 0 ms: Couldn't connect to server",
+  "ssh_exit": 255,
+  "ssh_stderr": "root@165.245.139.51: Permission denied (publickey). Direct SSH check failed before tunnel setup.",
+  "droplet": "165.245.139.51",
+  "next_step": "Restore SSH key access or vLLM tunnel, then rerun live raw NanoDefects baseline."
+}

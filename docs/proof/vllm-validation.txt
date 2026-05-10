@@ -1,0 +1,38 @@
+[1/4] Text request: PASS
+  endpoint accepted a text-only chat completion | latency=685ms
+[2/4] Remote image request: PASS
+  endpoint accepted a remote image URL | latency=859ms
+[3/4] Local image request: PASS
+  endpoint accepted base64 image input from examples/bottle_good_0.jpg | latency=1073ms
+[4/4] Defect JSON request: PASS
+  endpoint returned a schema-constrained defect response | latency=1243ms
+
+VLLM endpoint is ready.
+Model: Qwen/Qwen2.5-VL-7B-Instruct
+Endpoint: http://localhost:8000/v1/chat/completions
+Average latency across validation requests: 965ms
+
+Sample outputs:
+{
+  "text_request": "visionguard-ok",
+  "remote_image_request": "Two cats are lounging on a pink couch, with one cat lying on its side and the other stretched out, appearing relaxed.",
+  "local_image_request": "The image shows the interior of a bottle, which appears to be a dark color, possibly black or dark brown. The surface looks smooth and uniform, with no visible defects such as cracks, chips, or discoloration. The circular shape is consistent, and there are no signs of unevenness or distortion that would typically indicate a defect. Therefore, based on this image alone, the bottle does not appear to be defective. However, it's important to note that a thorough inspection from all angles and under different lighting conditions would be necessary for a comprehensive assessment.",
+  "defect_json_request": {
+    "defect_detected": false,
+    "defect_type": "none",
+    "defect_category": "manufacturing",
+    "severity": "ok",
+    "confidence": 1,
+    "location": "center",
+    "region": {
+      "horizontal": "center",
+      "vertical": "middle"
+    },
+    "action": "PASS",
+    "visual_explanation": "The image shows a clean, smooth surface with no visible defects.",
+    "possible_causes": [],
+    "recommended_fix": [],
+    "prevention": [],
+    "factory_owner_summary": ""
+  }
+}

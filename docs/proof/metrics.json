@@ -1,0 +1,1 @@
+{"total_inspected":28,"defects_found":11,"critical_events":9,"avg_latency_ms":1569.8214285714287,"latest_latency_ms":1912,"defect_rate":39.285714285714285,"estimated_images_per_min":38,"model_name":"Qwen/Qwen2.5-VL-7B-Instruct","runtime":"AMD MI300X · ROCm · vLLM","endpoint_status":"connected","demo_mode":false}

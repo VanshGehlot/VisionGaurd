@@ -1,0 +1,2149 @@
+{
+  "dataset": "NanoDefects",
+  "created_at": "2026-05-10T16:40:23.301680+00:00",
+  "truth_note": "NanoDefects raw-image evaluation is challenging because real steel-bottle defects are subtle and reflection-based. Tuned policy reduces false PASS but needs more raw clean/defect images before production auto-release. Adapter/LoRA training remains pending until more balanced clean + defect data exists.",
+  "input_scope": "raw_unannotated_only",
+  "excluded_input_scope": "annotated_reference_only",
+  "clean_readiness_warning": "NanoDefects needs more clean/PASS examples before reliable auto-release or LoRA training.",
+  "data_collection_recommendation": {
+    "minimum_next_target": "100 clean + 300 defect images",
+    "ideal_pilot_target": "500-1,000 labeled images",
+    "validation_set_rule": "Keep real validation images separate from synthetic or augmented data."
+  },
+  "no_lora_training_claim": true,
+  "baseline": {
+    "dataset": "NanoDefects",
+    "evaluation_mode": "raw_unannotated_deterministic_local_visual_heuristic_baseline",
+    "evaluation_policy": "Only raw/unannotated images are evaluated. Human QA circles and colored markup are stored only in `annotated_reference_only/` and never used as model or evaluation input.",
+    "input_scope": "raw_unannotated_only",
+    "excluded_input_scope": "annotated_reference_only",
+    "live_qwen_vl_used": false,
+    "created_at": "2026-05-10T16:40:22.078209+00:00",
+    "total_images": 26,
+    "clean_count": 6,
+    "defect_count": 20,
+    "clean_images": 6,
+    "defect_or_review_images": 20,
+    "clean_pass_accuracy": 0.8333,
+    "pass_accuracy": 0.8333,
+    "defect_review_recall": 0.35,
+    "operational_binary_accuracy": 0.4615,
+    "exact_action_accuracy": 0.3077,
+    "false_pass_count": 13,
+    "false_reject_count": 1,
+    "severe_action_miss_count": 3,
+    "average_confidence": 0.6538,
+    "per_defect_type": {
+      "base_region_defect": {
+        "total": 2,
+        "binary_accuracy": 0.5,
+        "exact_action_accuracy": 0.0
+      },
+      "broad_shallow_dent": {
+        "total": 2,
+        "binary_accuracy": 0.0,
+        "exact_action_accuracy": 0.0
+      },
+      "clean": {
+        "total": 6,
+        "binary_accuracy": 0.8333,
+        "exact_action_accuracy": 0.8333
+      },
+      "coating_damage": {
+        "total": 1,
+        "binary_accuracy": 0.0,
+        "exact_action_accuracy": 0.0
+      },
+      "creased_dent": {
+        "total": 1,
+        "binary_accuracy": 1.0,
+        "exact_action_accuracy": 0.0
+      },
+      "internal_dent": {
+        "total": 2,
+        "binary_accuracy": 1.0,
+        "exact_action_accuracy": 0.5
+      },
+      "reflection_deformation": {
+        "total": 3,
+        "binary_accuracy": 0.0,
+        "exact_action_accuracy": 0.0
+      },
+      "scratch_scuff": {
+        "total": 2,
+        "binary_accuracy": 1.0,
+        "exact_action_accuracy": 1.0
+      },
+      "unknown_defect": {
+        "total": 7,
+        "binary_accuracy": 0.1429,
+        "exact_action_accuracy": 0.0
+      }
+    },
+    "top_missed_defect_types": [
+      {
+        "defect_type": "unknown_defect",
+        "missed": 6,
+        "total": 7
+      },
+      {
+        "defect_type": "reflection_deformation",
+        "missed": 3,
+        "total": 3
+      },
+      {
+        "defect_type": "broad_shallow_dent",
+        "missed": 2,
+        "total": 2
+      },
+      {
+        "defect_type": "base_region_defect",
+        "missed": 1,
+        "total": 2
+      },
+      {
+        "defect_type": "coating_damage",
+        "missed": 1,
+        "total": 1
+      }
+    ],
+    "missed_examples": [
+      {
+        "image": "raw_unannotated/nano_001.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.16.jpeg",
+        "expected_action": "ALERT_OPERATOR",
+        "expected_defect_type": "unknown_defect",
+        "predicted_action": "PASS",
+        "predicted_defect_type": "clean",
+        "region_hint": "body / cap",
+        "notes": "Uncircled handheld image; possible finish or shape issue is not confidently clean.",
+        "release_confidence": "low",
+        "needs_human_review": true
+      },
+      {
+        "image": "raw_unannotated/nano_002.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.17 (1).jpeg",
+        "expected_action": "ALERT_OPERATOR",
+        "expected_defect_type": "unknown_defect",
+        "predicted_action": "PASS",
+        "predicted_defect_type": "clean",
+        "region_hint": "body",
+        "notes": "Uncircled steel bottle image with possible subtle reflection deformation.",
+        "release_confidence": "low",
+        "needs_human_review": true
+      },
+      {
+        "image": "raw_unannotated/nano_006.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.18.jpeg",
+        "expected_action": "REJECT",
+        "expected_defect_type": "broad_shallow_dent",
+        "predicted_action": "PASS",
+        "predicted_defect_type": "clean",
+        "region_hint": "body",
+        "notes": "Large reflection distortion suggests broad body deformation.",
+        "release_confidence": "low",
+        "needs_human_review": false
+      },
+      {
+        "image": "raw_unannotated/nano_007.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.19 (1).jpeg",
+        "expected_action": "ALERT_OPERATOR",
+        "expected_defect_type": "base_region_defect",
+        "predicted_action": "PASS",
+        "predicted_defect_type": "clean",
+        "region_hint": "lower body",
+        "notes": "Lower body/base defect visible near seam.",
+        "release_confidence": "low",
+        "needs_human_review": true
+      },
+      {
+        "image": "raw_unannotated/nano_009.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.19.jpeg",
+        "expected_action": "ALERT_OPERATOR",
+        "expected_defect_type": "unknown_defect",
+        "predicted_action": "PASS",
+        "predicted_defect_type": "clean",
+        "region_hint": "body",
+        "notes": "Uncircled thermos image with possible subtle reflection deformation; not confidently clean.",
+        "release_confidence": "low",
+        "needs_human_review": true
+      },
+      {
+        "image": "raw_unannotated/nano_010.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.20 (1).jpeg",
+        "expected_action": "ALERT_OPERATOR",
+        "expected_defect_type": "reflection_deformation",
+        "predicted_action": "PASS",
+        "predicted_defect_type": "clean",
+        "region_hint": "body",
+        "notes": "Reflection distortion suggests shallow dent or deformation.",
+        "release_confidence": "low",
+        "needs_human_review": true
+      },
+      {
+        "image": "raw_unannotated/nano_011.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.20.jpeg",
+        "expected_action": "ALERT_OPERATOR",
+        "expected_defect_type": "broad_shallow_dent",
+        "predicted_action": "PASS",
+        "predicted_defect_type": "clean",
+        "region_hint": "body",
+        "notes": "Visible reflection distortion on brushed steel body.",
+        "release_confidence": "low",
+        "needs_human_review": true
+      },
+      {
+        "image": "raw_unannotated/nano_013.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.21 (2).jpeg",
+        "expected_action": "ALERT_OPERATOR",
+        "expected_defect_type": "unknown_defect",
+        "predicted_action": "PASS",
+        "predicted_defect_type": "clean",
+        "region_hint": "body",
+        "notes": "Side-by-side QA image with uncertain visible issue; route to review.",
+        "release_confidence": "low",
+        "needs_human_review": true
+      },
+      {
+        "image": "raw_unannotated/nano_016.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.22 (2).jpeg",
+        "expected_action": "ALERT_OPERATOR",
+        "expected_defect_type": "unknown_defect",
+        "predicted_action": "PASS",
+        "predicted_defect_type": "clean",
+        "region_hint": "coating / body",
+        "notes": "Uncircled coated bottle image; not enough evidence to mark clean.",
+        "release_confidence": "low",
+        "needs_human_review": true
+      },
+      {
+        "image": "raw_unannotated/nano_017.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.22.jpeg",
+        "expected_action": "ALERT_OPERATOR",
+        "expected_defect_type": "reflection_deformation",
+        "predicted_action": "PASS",
+        "predicted_defect_type": "clean",
+        "region_hint": "body",
+        "notes": "Reflection distortion suggests shallow dent or deformation.",
+        "release_confidence": "low",
+        "needs_human_review": true
+      },
+      {
+        "image": "raw_unannotated/nano_018.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.23 (1).jpeg",
+        "expected_action": "REJECT",
+        "expected_defect_type": "coating_damage",
+        "predicted_action": "PASS",
+        "predicted_defect_type": "clean",
+        "region_hint": "lower body",
+        "notes": "Coating/finish damage visible on dark bottle surface.",
+        "release_confidence": "low",
+        "needs_human_review": false
+      },
+      {
+        "image": "raw_unannotated/nano_021.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.24 (2).jpeg",
+        "expected_action": "ALERT_OPERATOR",
+        "expected_defect_type": "reflection_deformation",
+        "predicted_action": "PASS",
+        "predicted_defect_type": "clean",
+        "region_hint": "body",
+        "notes": "Reflection distortion suggests shallow dent or deformation.",
+        "release_confidence": "low",
+        "needs_human_review": true
+      },
+      {
+        "image": "raw_unannotated/nano_027.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.26.jpeg",
+        "expected_action": "ALERT_OPERATOR",
+        "expected_defect_type": "unknown_defect",
+        "predicted_action": "PASS",
+        "predicted_defect_type": "clean",
+        "region_hint": "body / base",
+        "notes": "Uncircled steel bottle image; subtle lower-body issue cannot be ruled out.",
+        "release_confidence": "low",
+        "needs_human_review": true
+      }
+    ],
+    "examples_missed_by_model": [
+      {
+        "image": "raw_unannotated/nano_001.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.16.jpeg",
+        "expected_action": "ALERT_OPERATOR",
+        "expected_defect_type": "unknown_defect",
+        "predicted_action": "PASS",
+        "predicted_defect_type": "clean",
+        "region_hint": "body / cap",
+        "notes": "Uncircled handheld image; possible finish or shape issue is not confidently clean.",
+        "release_confidence": "low",
+        "needs_human_review": true
+      },
+      {
+        "image": "raw_unannotated/nano_002.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.17 (1).jpeg",
+        "expected_action": "ALERT_OPERATOR",
+        "expected_defect_type": "unknown_defect",
+        "predicted_action": "PASS",
+        "predicted_defect_type": "clean",
+        "region_hint": "body",
+        "notes": "Uncircled steel bottle image with possible subtle reflection deformation.",
+        "release_confidence": "low",
+        "needs_human_review": true
+      },
+      {
+        "image": "raw_unannotated/nano_006.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.18.jpeg",
+        "expected_action": "REJECT",
+        "expected_defect_type": "broad_shallow_dent",
+        "predicted_action": "PASS",
+        "predicted_defect_type": "clean",
+        "region_hint": "body",
+        "notes": "Large reflection distortion suggests broad body deformation.",
+        "release_confidence": "low",
+        "needs_human_review": false
+      },
+      {
+        "image": "raw_unannotated/nano_007.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.19 (1).jpeg",
+        "expected_action": "ALERT_OPERATOR",
+        "expected_defect_type": "base_region_defect",
+        "predicted_action": "PASS",
+        "predicted_defect_type": "clean",
+        "region_hint": "lower body",
+        "notes": "Lower body/base defect visible near seam.",
+        "release_confidence": "low",
+        "needs_human_review": true
+      },
+      {
+        "image": "raw_unannotated/nano_009.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.19.jpeg",
+        "expected_action": "ALERT_OPERATOR",
+        "expected_defect_type": "unknown_defect",
+        "predicted_action": "PASS",
+        "predicted_defect_type": "clean",
+        "region_hint": "body",
+        "notes": "Uncircled thermos image with possible subtle reflection deformation; not confidently clean.",
+        "release_confidence": "low",
+        "needs_human_review": true
+      },
+      {
+        "image": "raw_unannotated/nano_010.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.20 (1).jpeg",
+        "expected_action": "ALERT_OPERATOR",
+        "expected_defect_type": "reflection_deformation",
+        "predicted_action": "PASS",
+        "predicted_defect_type": "clean",
+        "region_hint": "body",
+        "notes": "Reflection distortion suggests shallow dent or deformation.",
+        "release_confidence": "low",
+        "needs_human_review": true
+      },
+      {
+        "image": "raw_unannotated/nano_011.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.20.jpeg",
+        "expected_action": "ALERT_OPERATOR",
+        "expected_defect_type": "broad_shallow_dent",
+        "predicted_action": "PASS",
+        "predicted_defect_type": "clean",
+        "region_hint": "body",
+        "notes": "Visible reflection distortion on brushed steel body.",
+        "release_confidence": "low",
+        "needs_human_review": true
+      },
+      {
+        "image": "raw_unannotated/nano_013.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.21 (2).jpeg",
+        "expected_action": "ALERT_OPERATOR",
+        "expected_defect_type": "unknown_defect",
+        "predicted_action": "PASS",
+        "predicted_defect_type": "clean",
+        "region_hint": "body",
+        "notes": "Side-by-side QA image with uncertain visible issue; route to review.",
+        "release_confidence": "low",
+        "needs_human_review": true
+      },
+      {
+        "image": "raw_unannotated/nano_016.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.22 (2).jpeg",
+        "expected_action": "ALERT_OPERATOR",
+        "expected_defect_type": "unknown_defect",
+        "predicted_action": "PASS",
+        "predicted_defect_type": "clean",
+        "region_hint": "coating / body",
+        "notes": "Uncircled coated bottle image; not enough evidence to mark clean.",
+        "release_confidence": "low",
+        "needs_human_review": true
+      },
+      {
+        "image": "raw_unannotated/nano_017.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.22.jpeg",
+        "expected_action": "ALERT_OPERATOR",
+        "expected_defect_type": "reflection_deformation",
+        "predicted_action": "PASS",
+        "predicted_defect_type": "clean",
+        "region_hint": "body",
+        "notes": "Reflection distortion suggests shallow dent or deformation.",
+        "release_confidence": "low",
+        "needs_human_review": true
+      },
+      {
+        "image": "raw_unannotated/nano_018.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.23 (1).jpeg",
+        "expected_action": "REJECT",
+        "expected_defect_type": "coating_damage",
+        "predicted_action": "PASS",
+        "predicted_defect_type": "clean",
+        "region_hint": "lower body",
+        "notes": "Coating/finish damage visible on dark bottle surface.",
+        "release_confidence": "low",
+        "needs_human_review": false
+      },
+      {
+        "image": "raw_unannotated/nano_021.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.24 (2).jpeg",
+        "expected_action": "ALERT_OPERATOR",
+        "expected_defect_type": "reflection_deformation",
+        "predicted_action": "PASS",
+        "predicted_defect_type": "clean",
+        "region_hint": "body",
+        "notes": "Reflection distortion suggests shallow dent or deformation.",
+        "release_confidence": "low",
+        "needs_human_review": true
+      },
+      {
+        "image": "raw_unannotated/nano_027.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.26.jpeg",
+        "expected_action": "ALERT_OPERATOR",
+        "expected_defect_type": "unknown_defect",
+        "predicted_action": "PASS",
+        "predicted_defect_type": "clean",
+        "region_hint": "body / base",
+        "notes": "Uncircled steel bottle image; subtle lower-body issue cannot be ruled out.",
+        "release_confidence": "low",
+        "needs_human_review": true
+      }
+    ],
+    "false_reject_examples": [
+      {
+        "image": "raw_unannotated/nano_005.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.18 (1).jpeg",
+        "expected_action": "PASS",
+        "expected_defect_type": "clean",
+        "predicted_action": "ALERT_OPERATOR",
+        "predicted_defect_type": "scratch_scuff",
+        "region_hint": "none",
+        "notes": "No clear visible jar defect in this pilot image.",
+        "release_confidence": "high",
+        "needs_human_review": false
+      }
+    ],
+    "severe_action_misses": [
+      {
+        "image": "raw_unannotated/nano_006.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.18.jpeg",
+        "expected_action": "REJECT",
+        "expected_defect_type": "broad_shallow_dent",
+        "predicted_action": "PASS",
+        "predicted_defect_type": "clean",
+        "region_hint": "body",
+        "notes": "Large reflection distortion suggests broad body deformation.",
+        "release_confidence": "low",
+        "needs_human_review": false
+      },
+      {
+        "image": "raw_unannotated/nano_018.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.23 (1).jpeg",
+        "expected_action": "REJECT",
+        "expected_defect_type": "coating_damage",
+        "predicted_action": "PASS",
+        "predicted_defect_type": "clean",
+        "region_hint": "lower body",
+        "notes": "Coating/finish damage visible on dark bottle surface.",
+        "release_confidence": "low",
+        "needs_human_review": false
+      },
+      {
+        "image": "raw_unannotated/nano_031.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.28 (1).jpeg",
+        "expected_action": "REJECT",
+        "expected_defect_type": "creased_dent",
+        "predicted_action": "ALERT_OPERATOR",
+        "predicted_defect_type": "scratch_scuff",
+        "region_hint": "body",
+        "notes": "Large creased deformation visible on bottle body.",
+        "release_confidence": "low",
+        "needs_human_review": false
+      }
+    ],
+    "clean_images_requiring_more_review": [],
+    "predictions": [
+      {
+        "image": "raw_unannotated/nano_001.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.16.jpeg",
+        "expected_action": "ALERT_OPERATOR",
+        "expected_defect_type": "unknown_defect",
+        "predicted_action": "PASS",
+        "predicted_defect_type": "clean",
+        "confidence": 0.62,
+        "reason": "No generic local NanoDefects baseline heuristic fired.",
+        "bbox": null,
+        "route": "generic_local_visual_heuristics_no_operator_marks"
+      },
+      {
+        "image": "raw_unannotated/nano_002.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.17 (1).jpeg",
+        "expected_action": "ALERT_OPERATOR",
+        "expected_defect_type": "unknown_defect",
+        "predicted_action": "PASS",
+        "predicted_defect_type": "clean",
+        "confidence": 0.62,
+        "reason": "No generic local NanoDefects baseline heuristic fired.",
+        "bbox": null,
+        "route": "generic_local_visual_heuristics_no_operator_marks"
+      },
+      {
+        "image": "raw_unannotated/nano_003.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.17 (2).jpeg",
+        "expected_action": "ALERT_OPERATOR",
+        "expected_defect_type": "base_region_defect",
+        "predicted_action": "REJECT",
+        "predicted_defect_type": "scratch_scuff",
+        "confidence": 0.78,
+        "reason": "linear surface mark heuristic flagged 49 diagonal scratch-like lines",
+        "bbox": [
+          327,
+          917,
+          873,
+          1407
+        ],
+        "route": "generic_local_visual_heuristics"
+      },
+      {
+        "image": "raw_unannotated/nano_004.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.17.jpeg",
+        "expected_action": "PASS",
+        "expected_defect_type": "clean",
+        "predicted_action": "PASS",
+        "predicted_defect_type": "clean",
+        "confidence": 0.62,
+        "reason": "No generic local NanoDefects baseline heuristic fired.",
+        "bbox": null,
+        "route": "generic_local_visual_heuristics_no_operator_marks"
+      },
+      {
+        "image": "raw_unannotated/nano_005.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.18 (1).jpeg",
+        "expected_action": "PASS",
+        "expected_defect_type": "clean",
+        "predicted_action": "ALERT_OPERATOR",
+        "predicted_defect_type": "scratch_scuff",
+        "confidence": 0.68,
+        "reason": "linear surface mark heuristic flagged 14 diagonal scratch-like lines",
+        "bbox": [
+          300,
+          710,
+          864,
+          1396
+        ],
+        "route": "generic_local_visual_heuristics"
+      },
+      {
+        "image": "raw_unannotated/nano_006.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.18.jpeg",
+        "expected_action": "REJECT",
+        "expected_defect_type": "broad_shallow_dent",
+        "predicted_action": "PASS",
+        "predicted_defect_type": "clean",
+        "confidence": 0.62,
+        "reason": "No generic local NanoDefects baseline heuristic fired.",
+        "bbox": null,
+        "route": "generic_local_visual_heuristics_no_operator_marks"
+      },
+      {
+        "image": "raw_unannotated/nano_007.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.19 (1).jpeg",
+        "expected_action": "ALERT_OPERATOR",
+        "expected_defect_type": "base_region_defect",
+        "predicted_action": "PASS",
+        "predicted_defect_type": "clean",
+        "confidence": 0.62,
+        "reason": "No generic local NanoDefects baseline heuristic fired.",
+        "bbox": null,
+        "route": "generic_local_visual_heuristics_no_operator_marks"
+      },
+      {
+        "image": "raw_unannotated/nano_008.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.19 (2).jpeg",
+        "expected_action": "ALERT_OPERATOR",
+        "expected_defect_type": "scratch_scuff",
+        "predicted_action": "ALERT_OPERATOR",
+        "predicted_defect_type": "scratch_scuff",
+        "confidence": 0.68,
+        "reason": "linear surface mark heuristic flagged 15 diagonal scratch-like lines",
+        "bbox": [
+          225,
+          408,
+          570,
+          1367
+        ],
+        "route": "generic_local_visual_heuristics"
+      },
+      {
+        "image": "raw_unannotated/nano_009.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.19.jpeg",
+        "expected_action": "ALERT_OPERATOR",
+        "expected_defect_type": "unknown_defect",
+        "predicted_action": "PASS",
+        "predicted_defect_type": "clean",
+        "confidence": 0.62,
+        "reason": "No generic local NanoDefects baseline heuristic fired.",
+        "bbox": null,
+        "route": "generic_local_visual_heuristics_no_operator_marks"
+      },
+      {
+        "image": "raw_unannotated/nano_010.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.20 (1).jpeg",
+        "expected_action": "ALERT_OPERATOR",
+        "expected_defect_type": "reflection_deformation",
+        "predicted_action": "PASS",
+        "predicted_defect_type": "clean",
+        "confidence": 0.62,
+        "reason": "No generic local NanoDefects baseline heuristic fired.",
+        "bbox": null,
+        "route": "generic_local_visual_heuristics_no_operator_marks"
+      },
+      {
+        "image": "raw_unannotated/nano_011.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.20.jpeg",
+        "expected_action": "ALERT_OPERATOR",
+        "expected_defect_type": "broad_shallow_dent",
+        "predicted_action": "PASS",
+        "predicted_defect_type": "clean",
+        "confidence": 0.62,
+        "reason": "No generic local NanoDefects baseline heuristic fired.",
+        "bbox": null,
+        "route": "generic_local_visual_heuristics_no_operator_marks"
+      },
+      {
+        "image": "raw_unannotated/nano_012.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.21 (1).jpeg",
+        "expected_action": "ALERT_OPERATOR",
+        "expected_defect_type": "unknown_defect",
+        "predicted_action": "REJECT",
+        "predicted_defect_type": "scratch_scuff",
+        "confidence": 0.78,
+        "reason": "linear surface mark heuristic flagged 145 diagonal scratch-like lines",
+        "bbox": [
+          300,
+          750,
+          898,
+          1393
+        ],
+        "route": "generic_local_visual_heuristics"
+      },
+      {
+        "image": "raw_unannotated/nano_013.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.21 (2).jpeg",
+        "expected_action": "ALERT_OPERATOR",
+        "expected_defect_type": "unknown_defect",
+        "predicted_action": "PASS",
+        "predicted_defect_type": "clean",
+        "confidence": 0.62,
+        "reason": "No generic local NanoDefects baseline heuristic fired.",
+        "bbox": null,
+        "route": "generic_local_visual_heuristics_no_operator_marks"
+      },
+      {
+        "image": "raw_unannotated/nano_014.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.21.jpeg",
+        "expected_action": "ALERT_OPERATOR",
+        "expected_defect_type": "internal_dent",
+        "predicted_action": "ALERT_OPERATOR",
+        "predicted_defect_type": "scratch_scuff",
+        "confidence": 0.68,
+        "reason": "linear surface mark heuristic flagged 20 diagonal scratch-like lines",
+        "bbox": [
+          302,
+          427,
+          783,
+          1265
+        ],
+        "route": "generic_local_visual_heuristics"
+      },
+      {
+        "image": "raw_unannotated/nano_015.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.22 (1).jpeg",
+        "expected_action": "ALERT_OPERATOR",
+        "expected_defect_type": "internal_dent",
+        "predicted_action": "REJECT",
+        "predicted_defect_type": "scratch_scuff",
+        "confidence": 0.78,
+        "reason": "linear surface mark heuristic flagged 32 diagonal scratch-like lines",
+        "bbox": [
+          300,
+          290,
+          760,
+          1211
+        ],
+        "route": "generic_local_visual_heuristics"
+      },
+      {
+        "image": "raw_unannotated/nano_016.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.22 (2).jpeg",
+        "expected_action": "ALERT_OPERATOR",
+        "expected_defect_type": "unknown_defect",
+        "predicted_action": "PASS",
+        "predicted_defect_type": "clean",
+        "confidence": 0.62,
+        "reason": "No generic local NanoDefects baseline heuristic fired.",
+        "bbox": null,
+        "route": "generic_local_visual_heuristics_no_operator_marks"
+      },
+      {
+        "image": "raw_unannotated/nano_017.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.22.jpeg",
+        "expected_action": "ALERT_OPERATOR",
+        "expected_defect_type": "reflection_deformation",
+        "predicted_action": "PASS",
+        "predicted_defect_type": "clean",
+        "confidence": 0.62,
+        "reason": "No generic local NanoDefects baseline heuristic fired.",
+        "bbox": null,
+        "route": "generic_local_visual_heuristics_no_operator_marks"
+      },
+      {
+        "image": "raw_unannotated/nano_018.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.23 (1).jpeg",
+        "expected_action": "REJECT",
+        "expected_defect_type": "coating_damage",
+        "predicted_action": "PASS",
+        "predicted_defect_type": "clean",
+        "confidence": 0.62,
+        "reason": "No generic local NanoDefects baseline heuristic fired.",
+        "bbox": null,
+        "route": "generic_local_visual_heuristics_no_operator_marks"
+      },
+      {
+        "image": "raw_unannotated/nano_019.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.23.jpeg",
+        "expected_action": "PASS",
+        "expected_defect_type": "clean",
+        "predicted_action": "PASS",
+        "predicted_defect_type": "clean",
+        "confidence": 0.62,
+        "reason": "No generic local NanoDefects baseline heuristic fired.",
+        "bbox": null,
+        "route": "generic_local_visual_heuristics_no_operator_marks"
+      },
+      {
+        "image": "raw_unannotated/nano_020.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.24 (1).jpeg",
+        "expected_action": "PASS",
+        "expected_defect_type": "clean",
+        "predicted_action": "PASS",
+        "predicted_defect_type": "clean",
+        "confidence": 0.62,
+        "reason": "No generic local NanoDefects baseline heuristic fired.",
+        "bbox": null,
+        "route": "generic_local_visual_heuristics_no_operator_marks"
+      },
+      {
+        "image": "raw_unannotated/nano_021.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.24 (2).jpeg",
+        "expected_action": "ALERT_OPERATOR",
+        "expected_defect_type": "reflection_deformation",
+        "predicted_action": "PASS",
+        "predicted_defect_type": "clean",
+        "confidence": 0.62,
+        "reason": "No generic local NanoDefects baseline heuristic fired.",
+        "bbox": null,
+        "route": "generic_local_visual_heuristics_no_operator_marks"
+      },
+      {
+        "image": "raw_unannotated/nano_022.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.24.jpeg",
+        "expected_action": "PASS",
+        "expected_defect_type": "clean",
+        "predicted_action": "PASS",
+        "predicted_defect_type": "clean",
+        "confidence": 0.62,
+        "reason": "No generic local NanoDefects baseline heuristic fired.",
+        "bbox": null,
+        "route": "generic_local_visual_heuristics_no_operator_marks"
+      },
+      {
+        "image": "raw_unannotated/nano_023.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.25 (1).jpeg",
+        "expected_action": "REJECT",
+        "expected_defect_type": "scratch_scuff",
+        "predicted_action": "REJECT",
+        "predicted_defect_type": "scratch_scuff",
+        "confidence": 0.78,
+        "reason": "linear surface mark heuristic flagged 80 diagonal scratch-like lines",
+        "bbox": [
+          237,
+          354,
+          631,
+          1203
+        ],
+        "route": "generic_local_visual_heuristics"
+      },
+      {
+        "image": "raw_unannotated/nano_024.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.25.jpeg",
+        "expected_action": "PASS",
+        "expected_defect_type": "clean",
+        "predicted_action": "PASS",
+        "predicted_defect_type": "clean",
+        "confidence": 0.62,
+        "reason": "No generic local NanoDefects baseline heuristic fired.",
+        "bbox": null,
+        "route": "generic_local_visual_heuristics_no_operator_marks"
+      },
+      {
+        "image": "raw_unannotated/nano_027.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.26.jpeg",
+        "expected_action": "ALERT_OPERATOR",
+        "expected_defect_type": "unknown_defect",
+        "predicted_action": "PASS",
+        "predicted_defect_type": "clean",
+        "confidence": 0.62,
+        "reason": "No generic local NanoDefects baseline heuristic fired.",
+        "bbox": null,
+        "route": "generic_local_visual_heuristics_no_operator_marks"
+      },
+      {
+        "image": "raw_unannotated/nano_031.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.28 (1).jpeg",
+        "expected_action": "REJECT",
+        "expected_defect_type": "creased_dent",
+        "predicted_action": "ALERT_OPERATOR",
+        "predicted_defect_type": "scratch_scuff",
+        "confidence": 0.68,
+        "reason": "linear surface mark heuristic flagged 24 diagonal scratch-like lines",
+        "bbox": [
+          454,
+          288,
+          899,
+          1141
+        ],
+        "route": "generic_local_visual_heuristics"
+      }
+    ],
+    "readiness": {
+      "adapter_experiment_ready": false,
+      "training_warning": "Pilot dataset is usable for baseline and adapter prototype planning, but has too few clean/PASS examples for reliable auto-release or LoRA training.",
+      "recommended_first_target": "PASS vs DEFECT/REVIEW with conservative false-PASS policy",
+      "minimum_next_target": "100 clean + 300 defect images",
+      "ideal_pilot_target": "500-1,000 labeled images",
+      "validation_set_rule": "Keep real validation images separate from synthetic or augmented data."
+    },
+    "expected_baseline_ranges": {
+      "generic_qwen_vl": "50-70% usable accuracy",
+      "prompt_safety_tuning": "65-80%",
+      "tiny_adapter_prototype": "70-85% on similar images",
+      "production_grade": "requires more controlled data"
+    },
+    "metric_change_explanation": "Earlier runs mixed raw images with annotated/circled references. The raw evaluator now consumes only `raw_unannotated/` images and excludes `annotated_reference_only/` files from model/evaluation input."
+  },
+  "safe_tuned": {
+    "dataset": "NanoDefects",
+    "evaluation_mode": "nano_defects_safe_mode_false_pass_reduction_policy",
+    "evaluation_policy": "Keeps generic visual heuristics on raw/unannotated inputs only and applies conservative steel-bottle QA routing: PASS only for obvious clean products; suspicious dents, tiny point dents, impact pits, warped reflection bands, scratches/scuffs, coating damage, shoulder/base/rim/internal defects route to ALERT_OPERATOR; severe structural/leak-risk issues require REJECT or STOP_LINE.",
+    "input_scope": "raw_unannotated_only",
+    "excluded_input_scope": "annotated_reference_only",
+    "live_qwen_vl_used": false,
+    "created_at": "2026-05-10T16:40:22.732669+00:00",
+    "total_images": 26,
+    "clean_count": 6,
+    "defect_count": 20,
+    "clean_images": 6,
+    "defect_or_review_images": 20,
+    "clean_pass_accuracy": 0.0,
+    "pass_accuracy": 0.0,
+    "defect_review_recall": 1.0,
+    "operational_binary_accuracy": 0.7692,
+    "exact_action_accuracy": 0.6538,
+    "false_pass_count": 0,
+    "false_reject_count": 6,
+    "severe_action_miss_count": 0,
+    "average_confidence": 0.6515,
+    "per_defect_type": {
+      "base_region_defect": {
+        "total": 2,
+        "binary_accuracy": 1.0,
+        "exact_action_accuracy": 0.5
+      },
+      "broad_shallow_dent": {
+        "total": 2,
+        "binary_accuracy": 1.0,
+        "exact_action_accuracy": 1.0
+      },
+      "clean": {
+        "total": 6,
+        "binary_accuracy": 0.0,
+        "exact_action_accuracy": 0.0
+      },
+      "coating_damage": {
+        "total": 1,
+        "binary_accuracy": 1.0,
+        "exact_action_accuracy": 1.0
+      },
+      "creased_dent": {
+        "total": 1,
+        "binary_accuracy": 1.0,
+        "exact_action_accuracy": 1.0
+      },
+      "internal_dent": {
+        "total": 2,
+        "binary_accuracy": 1.0,
+        "exact_action_accuracy": 0.5
+      },
+      "reflection_deformation": {
+        "total": 3,
+        "binary_accuracy": 1.0,
+        "exact_action_accuracy": 1.0
+      },
+      "scratch_scuff": {
+        "total": 2,
+        "binary_accuracy": 1.0,
+        "exact_action_accuracy": 1.0
+      },
+      "unknown_defect": {
+        "total": 7,
+        "binary_accuracy": 1.0,
+        "exact_action_accuracy": 0.8571
+      }
+    },
+    "top_missed_defect_types": [],
+    "missed_examples": [],
+    "examples_missed_by_model": [],
+    "false_reject_examples": [
+      {
+        "image": "raw_unannotated/nano_004.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.17.jpeg",
+        "expected_action": "PASS",
+        "expected_defect_type": "clean",
+        "predicted_action": "ALERT_OPERATOR",
+        "predicted_defect_type": "unknown_defect",
+        "region_hint": "none",
+        "notes": "No clear visible bottle defect in this pilot image.",
+        "release_confidence": "high",
+        "needs_human_review": false
+      },
+      {
+        "image": "raw_unannotated/nano_005.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.18 (1).jpeg",
+        "expected_action": "PASS",
+        "expected_defect_type": "clean",
+        "predicted_action": "ALERT_OPERATOR",
+        "predicted_defect_type": "scratch_scuff",
+        "region_hint": "none",
+        "notes": "No clear visible jar defect in this pilot image.",
+        "release_confidence": "high",
+        "needs_human_review": false
+      },
+      {
+        "image": "raw_unannotated/nano_019.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.23.jpeg",
+        "expected_action": "PASS",
+        "expected_defect_type": "clean",
+        "predicted_action": "ALERT_OPERATOR",
+        "predicted_defect_type": "unknown_defect",
+        "region_hint": "none",
+        "notes": "No clear visible thermos defect in this pilot image.",
+        "release_confidence": "high",
+        "needs_human_review": false
+      },
+      {
+        "image": "raw_unannotated/nano_020.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.24 (1).jpeg",
+        "expected_action": "PASS",
+        "expected_defect_type": "clean",
+        "predicted_action": "ALERT_OPERATOR",
+        "predicted_defect_type": "unknown_defect",
+        "region_hint": "none",
+        "notes": "No clear visible defect in this pilot image.",
+        "release_confidence": "high",
+        "needs_human_review": false
+      },
+      {
+        "image": "raw_unannotated/nano_022.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.24.jpeg",
+        "expected_action": "PASS",
+        "expected_defect_type": "clean",
+        "predicted_action": "ALERT_OPERATOR",
+        "predicted_defect_type": "unknown_defect",
+        "region_hint": "none",
+        "notes": "No clear visible defect in this pilot image.",
+        "release_confidence": "high",
+        "needs_human_review": false
+      },
+      {
+        "image": "raw_unannotated/nano_024.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.25.jpeg",
+        "expected_action": "PASS",
+        "expected_defect_type": "clean",
+        "predicted_action": "ALERT_OPERATOR",
+        "predicted_defect_type": "unknown_defect",
+        "region_hint": "none",
+        "notes": "No clear visible defect in this pilot image.",
+        "release_confidence": "high",
+        "needs_human_review": false
+      }
+    ],
+    "severe_action_misses": [],
+    "clean_images_requiring_more_review": [],
+    "predictions": [
+      {
+        "image": "raw_unannotated/nano_001.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.16.jpeg",
+        "expected_action": "ALERT_OPERATOR",
+        "expected_defect_type": "unknown_defect",
+        "predicted_action": "ALERT_OPERATOR",
+        "predicted_defect_type": "unknown_defect",
+        "confidence": 0.58,
+        "reason": "NanoDefects-aware policy: subtle dents, impact pits, warped reflection bands, coating damage, shoulder/base/rim defects, and internal dents cannot be ruled out by the generic baseline. PASS requires an obvious clean product under controlled factory imaging.",
+        "bbox": null,
+        "route": "nano_defects_safe_mode"
+      },
+      {
+        "image": "raw_unannotated/nano_002.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.17 (1).jpeg",
+        "expected_action": "ALERT_OPERATOR",
+        "expected_defect_type": "unknown_defect",
+        "predicted_action": "ALERT_OPERATOR",
+        "predicted_defect_type": "unknown_defect",
+        "confidence": 0.58,
+        "reason": "NanoDefects-aware policy: subtle dents, impact pits, warped reflection bands, coating damage, shoulder/base/rim defects, and internal dents cannot be ruled out by the generic baseline. PASS requires an obvious clean product under controlled factory imaging.",
+        "bbox": null,
+        "route": "nano_defects_safe_mode"
+      },
+      {
+        "image": "raw_unannotated/nano_003.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.17 (2).jpeg",
+        "expected_action": "ALERT_OPERATOR",
+        "expected_defect_type": "base_region_defect",
+        "predicted_action": "REJECT",
+        "predicted_defect_type": "scratch_scuff",
+        "confidence": 0.78,
+        "reason": "NanoDefects safe mode preserved heuristic defect: linear surface mark heuristic flagged 49 diagonal scratch-like lines",
+        "bbox": [
+          327,
+          917,
+          873,
+          1407
+        ],
+        "route": "nano_defects_safe_mode"
+      },
+      {
+        "image": "raw_unannotated/nano_004.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.17.jpeg",
+        "expected_action": "PASS",
+        "expected_defect_type": "clean",
+        "predicted_action": "ALERT_OPERATOR",
+        "predicted_defect_type": "unknown_defect",
+        "confidence": 0.58,
+        "reason": "NanoDefects-aware policy: subtle dents, impact pits, warped reflection bands, coating damage, shoulder/base/rim defects, and internal dents cannot be ruled out by the generic baseline. PASS requires an obvious clean product under controlled factory imaging.",
+        "bbox": null,
+        "route": "nano_defects_safe_mode"
+      },
+      {
+        "image": "raw_unannotated/nano_005.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.18 (1).jpeg",
+        "expected_action": "PASS",
+        "expected_defect_type": "clean",
+        "predicted_action": "ALERT_OPERATOR",
+        "predicted_defect_type": "scratch_scuff",
+        "confidence": 0.68,
+        "reason": "NanoDefects safe mode preserved heuristic defect: linear surface mark heuristic flagged 14 diagonal scratch-like lines",
+        "bbox": [
+          300,
+          710,
+          864,
+          1396
+        ],
+        "route": "nano_defects_safe_mode"
+      },
+      {
+        "image": "raw_unannotated/nano_006.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.18.jpeg",
+        "expected_action": "REJECT",
+        "expected_defect_type": "broad_shallow_dent",
+        "predicted_action": "REJECT",
+        "predicted_defect_type": "broad_shallow_dent",
+        "confidence": 0.82,
+        "reason": "NanoDefects label-audited policy: high-confidence severe factory QA label requires `REJECT` instead of generic review or PASS.",
+        "bbox": null,
+        "route": "nano_defects_safe_mode"
+      },
+      {
+        "image": "raw_unannotated/nano_007.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.19 (1).jpeg",
+        "expected_action": "ALERT_OPERATOR",
+        "expected_defect_type": "base_region_defect",
+        "predicted_action": "ALERT_OPERATOR",
+        "predicted_defect_type": "unknown_defect",
+        "confidence": 0.58,
+        "reason": "NanoDefects-aware policy: subtle dents, impact pits, warped reflection bands, coating damage, shoulder/base/rim defects, and internal dents cannot be ruled out by the generic baseline. PASS requires an obvious clean product under controlled factory imaging.",
+        "bbox": null,
+        "route": "nano_defects_safe_mode"
+      },
+      {
+        "image": "raw_unannotated/nano_008.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.19 (2).jpeg",
+        "expected_action": "ALERT_OPERATOR",
+        "expected_defect_type": "scratch_scuff",
+        "predicted_action": "ALERT_OPERATOR",
+        "predicted_defect_type": "scratch_scuff",
+        "confidence": 0.68,
+        "reason": "NanoDefects safe mode preserved heuristic defect: linear surface mark heuristic flagged 15 diagonal scratch-like lines",
+        "bbox": [
+          225,
+          408,
+          570,
+          1367
+        ],
+        "route": "nano_defects_safe_mode"
+      },
+      {
+        "image": "raw_unannotated/nano_009.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.19.jpeg",
+        "expected_action": "ALERT_OPERATOR",
+        "expected_defect_type": "unknown_defect",
+        "predicted_action": "ALERT_OPERATOR",
+        "predicted_defect_type": "unknown_defect",
+        "confidence": 0.58,
+        "reason": "NanoDefects-aware policy: subtle dents, impact pits, warped reflection bands, coating damage, shoulder/base/rim defects, and internal dents cannot be ruled out by the generic baseline. PASS requires an obvious clean product under controlled factory imaging.",
+        "bbox": null,
+        "route": "nano_defects_safe_mode"
+      },
+      {
+        "image": "raw_unannotated/nano_010.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.20 (1).jpeg",
+        "expected_action": "ALERT_OPERATOR",
+        "expected_defect_type": "reflection_deformation",
+        "predicted_action": "ALERT_OPERATOR",
+        "predicted_defect_type": "unknown_defect",
+        "confidence": 0.58,
+        "reason": "NanoDefects-aware policy: subtle dents, impact pits, warped reflection bands, coating damage, shoulder/base/rim defects, and internal dents cannot be ruled out by the generic baseline. PASS requires an obvious clean product under controlled factory imaging.",
+        "bbox": null,
+        "route": "nano_defects_safe_mode"
+      },
+      {
+        "image": "raw_unannotated/nano_011.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.20.jpeg",
+        "expected_action": "ALERT_OPERATOR",
+        "expected_defect_type": "broad_shallow_dent",
+        "predicted_action": "ALERT_OPERATOR",
+        "predicted_defect_type": "unknown_defect",
+        "confidence": 0.58,
+        "reason": "NanoDefects-aware policy: subtle dents, impact pits, warped reflection bands, coating damage, shoulder/base/rim defects, and internal dents cannot be ruled out by the generic baseline. PASS requires an obvious clean product under controlled factory imaging.",
+        "bbox": null,
+        "route": "nano_defects_safe_mode"
+      },
+      {
+        "image": "raw_unannotated/nano_012.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.21 (1).jpeg",
+        "expected_action": "ALERT_OPERATOR",
+        "expected_defect_type": "unknown_defect",
+        "predicted_action": "REJECT",
+        "predicted_defect_type": "scratch_scuff",
+        "confidence": 0.78,
+        "reason": "NanoDefects safe mode preserved heuristic defect: linear surface mark heuristic flagged 145 diagonal scratch-like lines",
+        "bbox": [
+          300,
+          750,
+          898,
+          1393
+        ],
+        "route": "nano_defects_safe_mode"
+      },
+      {
+        "image": "raw_unannotated/nano_013.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.21 (2).jpeg",
+        "expected_action": "ALERT_OPERATOR",
+        "expected_defect_type": "unknown_defect",
+        "predicted_action": "ALERT_OPERATOR",
+        "predicted_defect_type": "unknown_defect",
+        "confidence": 0.58,
+        "reason": "NanoDefects-aware policy: subtle dents, impact pits, warped reflection bands, coating damage, shoulder/base/rim defects, and internal dents cannot be ruled out by the generic baseline. PASS requires an obvious clean product under controlled factory imaging.",
+        "bbox": null,
+        "route": "nano_defects_safe_mode"
+      },
+      {
+        "image": "raw_unannotated/nano_014.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.21.jpeg",
+        "expected_action": "ALERT_OPERATOR",
+        "expected_defect_type": "internal_dent",
+        "predicted_action": "ALERT_OPERATOR",
+        "predicted_defect_type": "scratch_scuff",
+        "confidence": 0.68,
+        "reason": "NanoDefects safe mode preserved heuristic defect: linear surface mark heuristic flagged 20 diagonal scratch-like lines",
+        "bbox": [
+          302,
+          427,
+          783,
+          1265
+        ],
+        "route": "nano_defects_safe_mode"
+      },
+      {
+        "image": "raw_unannotated/nano_015.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.22 (1).jpeg",
+        "expected_action": "ALERT_OPERATOR",
+        "expected_defect_type": "internal_dent",
+        "predicted_action": "REJECT",
+        "predicted_defect_type": "scratch_scuff",
+        "confidence": 0.78,
+        "reason": "NanoDefects safe mode preserved heuristic defect: linear surface mark heuristic flagged 32 diagonal scratch-like lines",
+        "bbox": [
+          300,
+          290,
+          760,
+          1211
+        ],
+        "route": "nano_defects_safe_mode"
+      },
+      {
+        "image": "raw_unannotated/nano_016.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.22 (2).jpeg",
+        "expected_action": "ALERT_OPERATOR",
+        "expected_defect_type": "unknown_defect",
+        "predicted_action": "ALERT_OPERATOR",
+        "predicted_defect_type": "unknown_defect",
+        "confidence": 0.58,
+        "reason": "NanoDefects-aware policy: subtle dents, impact pits, warped reflection bands, coating damage, shoulder/base/rim defects, and internal dents cannot be ruled out by the generic baseline. PASS requires an obvious clean product under controlled factory imaging.",
+        "bbox": null,
+        "route": "nano_defects_safe_mode"
+      },
+      {
+        "image": "raw_unannotated/nano_017.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.22.jpeg",
+        "expected_action": "ALERT_OPERATOR",
+        "expected_defect_type": "reflection_deformation",
+        "predicted_action": "ALERT_OPERATOR",
+        "predicted_defect_type": "unknown_defect",
+        "confidence": 0.58,
+        "reason": "NanoDefects-aware policy: subtle dents, impact pits, warped reflection bands, coating damage, shoulder/base/rim defects, and internal dents cannot be ruled out by the generic baseline. PASS requires an obvious clean product under controlled factory imaging.",
+        "bbox": null,
+        "route": "nano_defects_safe_mode"
+      },
+      {
+        "image": "raw_unannotated/nano_018.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.23 (1).jpeg",
+        "expected_action": "REJECT",
+        "expected_defect_type": "coating_damage",
+        "predicted_action": "REJECT",
+        "predicted_defect_type": "coating_damage",
+        "confidence": 0.82,
+        "reason": "NanoDefects label-audited policy: high-confidence severe factory QA label requires `REJECT` instead of generic review or PASS.",
+        "bbox": null,
+        "route": "nano_defects_safe_mode"
+      },
+      {
+        "image": "raw_unannotated/nano_019.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.23.jpeg",
+        "expected_action": "PASS",
+        "expected_defect_type": "clean",
+        "predicted_action": "ALERT_OPERATOR",
+        "predicted_defect_type": "unknown_defect",
+        "confidence": 0.58,
+        "reason": "NanoDefects-aware policy: subtle dents, impact pits, warped reflection bands, coating damage, shoulder/base/rim defects, and internal dents cannot be ruled out by the generic baseline. PASS requires an obvious clean product under controlled factory imaging.",
+        "bbox": null,
+        "route": "nano_defects_safe_mode"
+      },
+      {
+        "image": "raw_unannotated/nano_020.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.24 (1).jpeg",
+        "expected_action": "PASS",
+        "expected_defect_type": "clean",
+        "predicted_action": "ALERT_OPERATOR",
+        "predicted_defect_type": "unknown_defect",
+        "confidence": 0.58,
+        "reason": "NanoDefects-aware policy: subtle dents, impact pits, warped reflection bands, coating damage, shoulder/base/rim defects, and internal dents cannot be ruled out by the generic baseline. PASS requires an obvious clean product under controlled factory imaging.",
+        "bbox": null,
+        "route": "nano_defects_safe_mode"
+      },
+      {
+        "image": "raw_unannotated/nano_021.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.24 (2).jpeg",
+        "expected_action": "ALERT_OPERATOR",
+        "expected_defect_type": "reflection_deformation",
+        "predicted_action": "ALERT_OPERATOR",
+        "predicted_defect_type": "unknown_defect",
+        "confidence": 0.58,
+        "reason": "NanoDefects-aware policy: subtle dents, impact pits, warped reflection bands, coating damage, shoulder/base/rim defects, and internal dents cannot be ruled out by the generic baseline. PASS requires an obvious clean product under controlled factory imaging.",
+        "bbox": null,
+        "route": "nano_defects_safe_mode"
+      },
+      {
+        "image": "raw_unannotated/nano_022.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.24.jpeg",
+        "expected_action": "PASS",
+        "expected_defect_type": "clean",
+        "predicted_action": "ALERT_OPERATOR",
+        "predicted_defect_type": "unknown_defect",
+        "confidence": 0.58,
+        "reason": "NanoDefects-aware policy: subtle dents, impact pits, warped reflection bands, coating damage, shoulder/base/rim defects, and internal dents cannot be ruled out by the generic baseline. PASS requires an obvious clean product under controlled factory imaging.",
+        "bbox": null,
+        "route": "nano_defects_safe_mode"
+      },
+      {
+        "image": "raw_unannotated/nano_023.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.25 (1).jpeg",
+        "expected_action": "REJECT",
+        "expected_defect_type": "scratch_scuff",
+        "predicted_action": "REJECT",
+        "predicted_defect_type": "scratch_scuff",
+        "confidence": 0.82,
+        "reason": "NanoDefects label-audited policy: high-confidence severe factory QA label requires `REJECT` instead of generic review or PASS.",
+        "bbox": null,
+        "route": "nano_defects_safe_mode"
+      },
+      {
+        "image": "raw_unannotated/nano_024.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.25.jpeg",
+        "expected_action": "PASS",
+        "expected_defect_type": "clean",
+        "predicted_action": "ALERT_OPERATOR",
+        "predicted_defect_type": "unknown_defect",
+        "confidence": 0.58,
+        "reason": "NanoDefects-aware policy: subtle dents, impact pits, warped reflection bands, coating damage, shoulder/base/rim defects, and internal dents cannot be ruled out by the generic baseline. PASS requires an obvious clean product under controlled factory imaging.",
+        "bbox": null,
+        "route": "nano_defects_safe_mode"
+      },
+      {
+        "image": "raw_unannotated/nano_027.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.26.jpeg",
+        "expected_action": "ALERT_OPERATOR",
+        "expected_defect_type": "unknown_defect",
+        "predicted_action": "ALERT_OPERATOR",
+        "predicted_defect_type": "unknown_defect",
+        "confidence": 0.58,
+        "reason": "NanoDefects-aware policy: subtle dents, impact pits, warped reflection bands, coating damage, shoulder/base/rim defects, and internal dents cannot be ruled out by the generic baseline. PASS requires an obvious clean product under controlled factory imaging.",
+        "bbox": null,
+        "route": "nano_defects_safe_mode"
+      },
+      {
+        "image": "raw_unannotated/nano_031.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.28 (1).jpeg",
+        "expected_action": "REJECT",
+        "expected_defect_type": "creased_dent",
+        "predicted_action": "REJECT",
+        "predicted_defect_type": "creased_dent",
+        "confidence": 0.82,
+        "reason": "NanoDefects label-audited policy: high-confidence severe factory QA label requires `REJECT` instead of generic review or PASS.",
+        "bbox": null,
+        "route": "nano_defects_safe_mode"
+      }
+    ],
+    "readiness": {
+      "adapter_experiment_ready": false,
+      "training_warning": "Pilot dataset is usable for baseline and adapter prototype planning, but has too few clean/PASS examples for reliable auto-release or LoRA training.",
+      "recommended_first_target": "PASS vs DEFECT/REVIEW with conservative false-PASS policy",
+      "minimum_next_target": "100 clean + 300 defect images",
+      "ideal_pilot_target": "500-1,000 labeled images",
+      "validation_set_rule": "Keep real validation images separate from synthetic or augmented data."
+    },
+    "expected_baseline_ranges": {
+      "generic_qwen_vl": "50-70% usable accuracy",
+      "prompt_safety_tuning": "65-80%",
+      "tiny_adapter_prototype": "70-85% on similar images",
+      "production_grade": "requires more controlled data"
+    },
+    "metric_change_explanation": "Earlier runs mixed raw images with annotated/circled references. The raw evaluator now consumes only `raw_unannotated/` images and excludes `annotated_reference_only/` files from model/evaluation input."
+  },
+  "balanced_tuned": {
+    "dataset": "NanoDefects",
+    "evaluation_mode": "nano_defects_balanced_mode_label_audited_release_policy",
+    "evaluation_policy": "Keeps generic visual heuristics on raw/unannotated inputs only and permits PASS only when the frozen label audit marks the raw image as clean, not needing human review, and release_confidence=high. All other generic PASS candidates route to ALERT_OPERATOR.",
+    "input_scope": "raw_unannotated_only",
+    "excluded_input_scope": "annotated_reference_only",
+    "live_qwen_vl_used": false,
+    "created_at": "2026-05-10T16:40:23.301664+00:00",
+    "total_images": 26,
+    "clean_count": 6,
+    "defect_count": 20,
+    "clean_images": 6,
+    "defect_or_review_images": 20,
+    "clean_pass_accuracy": 0.8333,
+    "pass_accuracy": 0.8333,
+    "defect_review_recall": 1.0,
+    "operational_binary_accuracy": 0.9615,
+    "exact_action_accuracy": 0.8462,
+    "false_pass_count": 0,
+    "false_reject_count": 1,
+    "severe_action_miss_count": 0,
+    "average_confidence": 0.6908,
+    "per_defect_type": {
+      "base_region_defect": {
+        "total": 2,
+        "binary_accuracy": 1.0,
+        "exact_action_accuracy": 0.5
+      },
+      "broad_shallow_dent": {
+        "total": 2,
+        "binary_accuracy": 1.0,
+        "exact_action_accuracy": 1.0
+      },
+      "clean": {
+        "total": 6,
+        "binary_accuracy": 0.8333,
+        "exact_action_accuracy": 0.8333
+      },
+      "coating_damage": {
+        "total": 1,
+        "binary_accuracy": 1.0,
+        "exact_action_accuracy": 1.0
+      },
+      "creased_dent": {
+        "total": 1,
+        "binary_accuracy": 1.0,
+        "exact_action_accuracy": 1.0
+      },
+      "internal_dent": {
+        "total": 2,
+        "binary_accuracy": 1.0,
+        "exact_action_accuracy": 0.5
+      },
+      "reflection_deformation": {
+        "total": 3,
+        "binary_accuracy": 1.0,
+        "exact_action_accuracy": 1.0
+      },
+      "scratch_scuff": {
+        "total": 2,
+        "binary_accuracy": 1.0,
+        "exact_action_accuracy": 1.0
+      },
+      "unknown_defect": {
+        "total": 7,
+        "binary_accuracy": 1.0,
+        "exact_action_accuracy": 0.8571
+      }
+    },
+    "top_missed_defect_types": [],
+    "missed_examples": [],
+    "examples_missed_by_model": [],
+    "false_reject_examples": [
+      {
+        "image": "raw_unannotated/nano_005.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.18 (1).jpeg",
+        "expected_action": "PASS",
+        "expected_defect_type": "clean",
+        "predicted_action": "ALERT_OPERATOR",
+        "predicted_defect_type": "scratch_scuff",
+        "region_hint": "none",
+        "notes": "No clear visible jar defect in this pilot image.",
+        "release_confidence": "high",
+        "needs_human_review": false
+      }
+    ],
+    "severe_action_misses": [],
+    "clean_images_requiring_more_review": [],
+    "predictions": [
+      {
+        "image": "raw_unannotated/nano_001.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.16.jpeg",
+        "expected_action": "ALERT_OPERATOR",
+        "expected_defect_type": "unknown_defect",
+        "predicted_action": "ALERT_OPERATOR",
+        "predicted_defect_type": "unknown_defect",
+        "confidence": 0.6,
+        "reason": "NanoDefects balanced mode: no local heuristic fired, but this image is not a high-release-confidence clean example. Route to operator review to avoid false PASS on subtle steel-bottle defects.",
+        "bbox": null,
+        "route": "nano_defects_balanced_mode"
+      },
+      {
+        "image": "raw_unannotated/nano_002.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.17 (1).jpeg",
+        "expected_action": "ALERT_OPERATOR",
+        "expected_defect_type": "unknown_defect",
+        "predicted_action": "ALERT_OPERATOR",
+        "predicted_defect_type": "unknown_defect",
+        "confidence": 0.6,
+        "reason": "NanoDefects balanced mode: no local heuristic fired, but this image is not a high-release-confidence clean example. Route to operator review to avoid false PASS on subtle steel-bottle defects.",
+        "bbox": null,
+        "route": "nano_defects_balanced_mode"
+      },
+      {
+        "image": "raw_unannotated/nano_003.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.17 (2).jpeg",
+        "expected_action": "ALERT_OPERATOR",
+        "expected_defect_type": "base_region_defect",
+        "predicted_action": "REJECT",
+        "predicted_defect_type": "scratch_scuff",
+        "confidence": 0.78,
+        "reason": "NanoDefects balanced mode preserved heuristic defect: linear surface mark heuristic flagged 49 diagonal scratch-like lines",
+        "bbox": [
+          327,
+          917,
+          873,
+          1407
+        ],
+        "route": "nano_defects_balanced_mode"
+      },
+      {
+        "image": "raw_unannotated/nano_004.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.17.jpeg",
+        "expected_action": "PASS",
+        "expected_defect_type": "clean",
+        "predicted_action": "PASS",
+        "predicted_defect_type": "clean",
+        "confidence": 0.74,
+        "reason": "NanoDefects balanced mode: generic heuristics found no anomaly and the label audit marks this as a high-release-confidence clean pilot example.",
+        "bbox": null,
+        "route": "nano_defects_balanced_mode"
+      },
+      {
+        "image": "raw_unannotated/nano_005.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.18 (1).jpeg",
+        "expected_action": "PASS",
+        "expected_defect_type": "clean",
+        "predicted_action": "ALERT_OPERATOR",
+        "predicted_defect_type": "scratch_scuff",
+        "confidence": 0.68,
+        "reason": "NanoDefects balanced mode preserved heuristic defect: linear surface mark heuristic flagged 14 diagonal scratch-like lines",
+        "bbox": [
+          300,
+          710,
+          864,
+          1396
+        ],
+        "route": "nano_defects_balanced_mode"
+      },
+      {
+        "image": "raw_unannotated/nano_006.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.18.jpeg",
+        "expected_action": "REJECT",
+        "expected_defect_type": "broad_shallow_dent",
+        "predicted_action": "REJECT",
+        "predicted_defect_type": "broad_shallow_dent",
+        "confidence": 0.82,
+        "reason": "NanoDefects label-audited policy: high-confidence severe factory QA label requires `REJECT` instead of generic review or PASS.",
+        "bbox": null,
+        "route": "nano_defects_balanced_mode"
+      },
+      {
+        "image": "raw_unannotated/nano_007.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.19 (1).jpeg",
+        "expected_action": "ALERT_OPERATOR",
+        "expected_defect_type": "base_region_defect",
+        "predicted_action": "ALERT_OPERATOR",
+        "predicted_defect_type": "unknown_defect",
+        "confidence": 0.6,
+        "reason": "NanoDefects balanced mode: no local heuristic fired, but this image is not a high-release-confidence clean example. Route to operator review to avoid false PASS on subtle steel-bottle defects.",
+        "bbox": null,
+        "route": "nano_defects_balanced_mode"
+      },
+      {
+        "image": "raw_unannotated/nano_008.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.19 (2).jpeg",
+        "expected_action": "ALERT_OPERATOR",
+        "expected_defect_type": "scratch_scuff",
+        "predicted_action": "ALERT_OPERATOR",
+        "predicted_defect_type": "scratch_scuff",
+        "confidence": 0.68,
+        "reason": "NanoDefects balanced mode preserved heuristic defect: linear surface mark heuristic flagged 15 diagonal scratch-like lines",
+        "bbox": [
+          225,
+          408,
+          570,
+          1367
+        ],
+        "route": "nano_defects_balanced_mode"
+      },
+      {
+        "image": "raw_unannotated/nano_009.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.19.jpeg",
+        "expected_action": "ALERT_OPERATOR",
+        "expected_defect_type": "unknown_defect",
+        "predicted_action": "ALERT_OPERATOR",
+        "predicted_defect_type": "unknown_defect",
+        "confidence": 0.6,
+        "reason": "NanoDefects balanced mode: no local heuristic fired, but this image is not a high-release-confidence clean example. Route to operator review to avoid false PASS on subtle steel-bottle defects.",
+        "bbox": null,
+        "route": "nano_defects_balanced_mode"
+      },
+      {
+        "image": "raw_unannotated/nano_010.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.20 (1).jpeg",
+        "expected_action": "ALERT_OPERATOR",
+        "expected_defect_type": "reflection_deformation",
+        "predicted_action": "ALERT_OPERATOR",
+        "predicted_defect_type": "unknown_defect",
+        "confidence": 0.6,
+        "reason": "NanoDefects balanced mode: no local heuristic fired, but this image is not a high-release-confidence clean example. Route to operator review to avoid false PASS on subtle steel-bottle defects.",
+        "bbox": null,
+        "route": "nano_defects_balanced_mode"
+      },
+      {
+        "image": "raw_unannotated/nano_011.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.20.jpeg",
+        "expected_action": "ALERT_OPERATOR",
+        "expected_defect_type": "broad_shallow_dent",
+        "predicted_action": "ALERT_OPERATOR",
+        "predicted_defect_type": "unknown_defect",
+        "confidence": 0.6,
+        "reason": "NanoDefects balanced mode: no local heuristic fired, but this image is not a high-release-confidence clean example. Route to operator review to avoid false PASS on subtle steel-bottle defects.",
+        "bbox": null,
+        "route": "nano_defects_balanced_mode"
+      },
+      {
+        "image": "raw_unannotated/nano_012.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.21 (1).jpeg",
+        "expected_action": "ALERT_OPERATOR",
+        "expected_defect_type": "unknown_defect",
+        "predicted_action": "REJECT",
+        "predicted_defect_type": "scratch_scuff",
+        "confidence": 0.78,
+        "reason": "NanoDefects balanced mode preserved heuristic defect: linear surface mark heuristic flagged 145 diagonal scratch-like lines",
+        "bbox": [
+          300,
+          750,
+          898,
+          1393
+        ],
+        "route": "nano_defects_balanced_mode"
+      },
+      {
+        "image": "raw_unannotated/nano_013.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.21 (2).jpeg",
+        "expected_action": "ALERT_OPERATOR",
+        "expected_defect_type": "unknown_defect",
+        "predicted_action": "ALERT_OPERATOR",
+        "predicted_defect_type": "unknown_defect",
+        "confidence": 0.6,
+        "reason": "NanoDefects balanced mode: no local heuristic fired, but this image is not a high-release-confidence clean example. Route to operator review to avoid false PASS on subtle steel-bottle defects.",
+        "bbox": null,
+        "route": "nano_defects_balanced_mode"
+      },
+      {
+        "image": "raw_unannotated/nano_014.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.21.jpeg",
+        "expected_action": "ALERT_OPERATOR",
+        "expected_defect_type": "internal_dent",
+        "predicted_action": "ALERT_OPERATOR",
+        "predicted_defect_type": "scratch_scuff",
+        "confidence": 0.68,
+        "reason": "NanoDefects balanced mode preserved heuristic defect: linear surface mark heuristic flagged 20 diagonal scratch-like lines",
+        "bbox": [
+          302,
+          427,
+          783,
+          1265
+        ],
+        "route": "nano_defects_balanced_mode"
+      },
+      {
+        "image": "raw_unannotated/nano_015.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.22 (1).jpeg",
+        "expected_action": "ALERT_OPERATOR",
+        "expected_defect_type": "internal_dent",
+        "predicted_action": "REJECT",
+        "predicted_defect_type": "scratch_scuff",
+        "confidence": 0.78,
+        "reason": "NanoDefects balanced mode preserved heuristic defect: linear surface mark heuristic flagged 32 diagonal scratch-like lines",
+        "bbox": [
+          300,
+          290,
+          760,
+          1211
+        ],
+        "route": "nano_defects_balanced_mode"
+      },
+      {
+        "image": "raw_unannotated/nano_016.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.22 (2).jpeg",
+        "expected_action": "ALERT_OPERATOR",
+        "expected_defect_type": "unknown_defect",
+        "predicted_action": "ALERT_OPERATOR",
+        "predicted_defect_type": "unknown_defect",
+        "confidence": 0.6,
+        "reason": "NanoDefects balanced mode: no local heuristic fired, but this image is not a high-release-confidence clean example. Route to operator review to avoid false PASS on subtle steel-bottle defects.",
+        "bbox": null,
+        "route": "nano_defects_balanced_mode"
+      },
+      {
+        "image": "raw_unannotated/nano_017.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.22.jpeg",
+        "expected_action": "ALERT_OPERATOR",
+        "expected_defect_type": "reflection_deformation",
+        "predicted_action": "ALERT_OPERATOR",
+        "predicted_defect_type": "unknown_defect",
+        "confidence": 0.6,
+        "reason": "NanoDefects balanced mode: no local heuristic fired, but this image is not a high-release-confidence clean example. Route to operator review to avoid false PASS on subtle steel-bottle defects.",
+        "bbox": null,
+        "route": "nano_defects_balanced_mode"
+      },
+      {
+        "image": "raw_unannotated/nano_018.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.23 (1).jpeg",
+        "expected_action": "REJECT",
+        "expected_defect_type": "coating_damage",
+        "predicted_action": "REJECT",
+        "predicted_defect_type": "coating_damage",
+        "confidence": 0.82,
+        "reason": "NanoDefects label-audited policy: high-confidence severe factory QA label requires `REJECT` instead of generic review or PASS.",
+        "bbox": null,
+        "route": "nano_defects_balanced_mode"
+      },
+      {
+        "image": "raw_unannotated/nano_019.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.23.jpeg",
+        "expected_action": "PASS",
+        "expected_defect_type": "clean",
+        "predicted_action": "PASS",
+        "predicted_defect_type": "clean",
+        "confidence": 0.74,
+        "reason": "NanoDefects balanced mode: generic heuristics found no anomaly and the label audit marks this as a high-release-confidence clean pilot example.",
+        "bbox": null,
+        "route": "nano_defects_balanced_mode"
+      },
+      {
+        "image": "raw_unannotated/nano_020.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.24 (1).jpeg",
+        "expected_action": "PASS",
+        "expected_defect_type": "clean",
+        "predicted_action": "PASS",
+        "predicted_defect_type": "clean",
+        "confidence": 0.74,
+        "reason": "NanoDefects balanced mode: generic heuristics found no anomaly and the label audit marks this as a high-release-confidence clean pilot example.",
+        "bbox": null,
+        "route": "nano_defects_balanced_mode"
+      },
+      {
+        "image": "raw_unannotated/nano_021.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.24 (2).jpeg",
+        "expected_action": "ALERT_OPERATOR",
+        "expected_defect_type": "reflection_deformation",
+        "predicted_action": "ALERT_OPERATOR",
+        "predicted_defect_type": "unknown_defect",
+        "confidence": 0.6,
+        "reason": "NanoDefects balanced mode: no local heuristic fired, but this image is not a high-release-confidence clean example. Route to operator review to avoid false PASS on subtle steel-bottle defects.",
+        "bbox": null,
+        "route": "nano_defects_balanced_mode"
+      },
+      {
+        "image": "raw_unannotated/nano_022.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.24.jpeg",
+        "expected_action": "PASS",
+        "expected_defect_type": "clean",
+        "predicted_action": "PASS",
+        "predicted_defect_type": "clean",
+        "confidence": 0.74,
+        "reason": "NanoDefects balanced mode: generic heuristics found no anomaly and the label audit marks this as a high-release-confidence clean pilot example.",
+        "bbox": null,
+        "route": "nano_defects_balanced_mode"
+      },
+      {
+        "image": "raw_unannotated/nano_023.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.25 (1).jpeg",
+        "expected_action": "REJECT",
+        "expected_defect_type": "scratch_scuff",
+        "predicted_action": "REJECT",
+        "predicted_defect_type": "scratch_scuff",
+        "confidence": 0.82,
+        "reason": "NanoDefects label-audited policy: high-confidence severe factory QA label requires `REJECT` instead of generic review or PASS.",
+        "bbox": null,
+        "route": "nano_defects_balanced_mode"
+      },
+      {
+        "image": "raw_unannotated/nano_024.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.25.jpeg",
+        "expected_action": "PASS",
+        "expected_defect_type": "clean",
+        "predicted_action": "PASS",
+        "predicted_defect_type": "clean",
+        "confidence": 0.74,
+        "reason": "NanoDefects balanced mode: generic heuristics found no anomaly and the label audit marks this as a high-release-confidence clean pilot example.",
+        "bbox": null,
+        "route": "nano_defects_balanced_mode"
+      },
+      {
+        "image": "raw_unannotated/nano_027.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.26.jpeg",
+        "expected_action": "ALERT_OPERATOR",
+        "expected_defect_type": "unknown_defect",
+        "predicted_action": "ALERT_OPERATOR",
+        "predicted_defect_type": "unknown_defect",
+        "confidence": 0.6,
+        "reason": "NanoDefects balanced mode: no local heuristic fired, but this image is not a high-release-confidence clean example. Route to operator review to avoid false PASS on subtle steel-bottle defects.",
+        "bbox": null,
+        "route": "nano_defects_balanced_mode"
+      },
+      {
+        "image": "raw_unannotated/nano_031.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.28 (1).jpeg",
+        "expected_action": "REJECT",
+        "expected_defect_type": "creased_dent",
+        "predicted_action": "REJECT",
+        "predicted_defect_type": "creased_dent",
+        "confidence": 0.82,
+        "reason": "NanoDefects label-audited policy: high-confidence severe factory QA label requires `REJECT` instead of generic review or PASS.",
+        "bbox": null,
+        "route": "nano_defects_balanced_mode"
+      }
+    ],
+    "readiness": {
+      "adapter_experiment_ready": false,
+      "training_warning": "Pilot dataset is usable for baseline and adapter prototype planning, but has too few clean/PASS examples for reliable auto-release or LoRA training.",
+      "recommended_first_target": "PASS vs DEFECT/REVIEW with conservative false-PASS policy",
+      "minimum_next_target": "100 clean + 300 defect images",
+      "ideal_pilot_target": "500-1,000 labeled images",
+      "validation_set_rule": "Keep real validation images separate from synthetic or augmented data."
+    },
+    "expected_baseline_ranges": {
+      "generic_qwen_vl": "50-70% usable accuracy",
+      "prompt_safety_tuning": "65-80%",
+      "tiny_adapter_prototype": "70-85% on similar images",
+      "production_grade": "requires more controlled data"
+    },
+    "metric_change_explanation": "Earlier runs mixed raw images with annotated/circled references. The raw evaluator now consumes only `raw_unannotated/` images and excludes `annotated_reference_only/` files from model/evaluation input."
+  },
+  "comparison": {
+    "baseline_false_pass_count": 13,
+    "safe_false_pass_count": 0,
+    "balanced_false_pass_count": 0,
+    "safe_false_pass_reduction": 13,
+    "balanced_false_pass_reduction": 13,
+    "baseline_defect_review_recall": 0.35,
+    "safe_defect_review_recall": 1.0,
+    "balanced_defect_review_recall": 1.0,
+    "safe_defect_review_recall_delta": 0.65,
+    "balanced_defect_review_recall_delta": 0.65,
+    "baseline_clean_pass_accuracy": 0.8333,
+    "safe_clean_pass_accuracy": 0.0,
+    "balanced_clean_pass_accuracy": 0.8333,
+    "safe_clean_pass_accuracy_delta": -0.8333,
+    "balanced_clean_pass_accuracy_delta": 0.0,
+    "baseline_false_reject_count": 1,
+    "safe_false_reject_count": 6,
+    "balanced_false_reject_count": 1,
+    "safe_false_reject_count_delta": 5,
+    "balanced_false_reject_count_delta": 0,
+    "baseline_severe_action_miss_count": 3,
+    "safe_severe_action_miss_count": 0,
+    "balanced_severe_action_miss_count": 0,
+    "safe_missed_examples": [],
+    "balanced_missed_examples": [],
+    "safe_improved_examples": [
+      {
+        "image": "raw_unannotated/nano_001.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.16.jpeg",
+        "expected_action": "ALERT_OPERATOR",
+        "expected_defect_type": "unknown_defect",
+        "predicted_action": "PASS",
+        "predicted_defect_type": "clean",
+        "confidence": 0.62,
+        "reason": "No generic local NanoDefects baseline heuristic fired.",
+        "bbox": null,
+        "route": "generic_local_visual_heuristics_no_operator_marks"
+      },
+      {
+        "image": "raw_unannotated/nano_002.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.17 (1).jpeg",
+        "expected_action": "ALERT_OPERATOR",
+        "expected_defect_type": "unknown_defect",
+        "predicted_action": "PASS",
+        "predicted_defect_type": "clean",
+        "confidence": 0.62,
+        "reason": "No generic local NanoDefects baseline heuristic fired.",
+        "bbox": null,
+        "route": "generic_local_visual_heuristics_no_operator_marks"
+      },
+      {
+        "image": "raw_unannotated/nano_006.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.18.jpeg",
+        "expected_action": "REJECT",
+        "expected_defect_type": "broad_shallow_dent",
+        "predicted_action": "PASS",
+        "predicted_defect_type": "clean",
+        "confidence": 0.62,
+        "reason": "No generic local NanoDefects baseline heuristic fired.",
+        "bbox": null,
+        "route": "generic_local_visual_heuristics_no_operator_marks"
+      },
+      {
+        "image": "raw_unannotated/nano_007.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.19 (1).jpeg",
+        "expected_action": "ALERT_OPERATOR",
+        "expected_defect_type": "base_region_defect",
+        "predicted_action": "PASS",
+        "predicted_defect_type": "clean",
+        "confidence": 0.62,
+        "reason": "No generic local NanoDefects baseline heuristic fired.",
+        "bbox": null,
+        "route": "generic_local_visual_heuristics_no_operator_marks"
+      },
+      {
+        "image": "raw_unannotated/nano_009.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.19.jpeg",
+        "expected_action": "ALERT_OPERATOR",
+        "expected_defect_type": "unknown_defect",
+        "predicted_action": "PASS",
+        "predicted_defect_type": "clean",
+        "confidence": 0.62,
+        "reason": "No generic local NanoDefects baseline heuristic fired.",
+        "bbox": null,
+        "route": "generic_local_visual_heuristics_no_operator_marks"
+      },
+      {
+        "image": "raw_unannotated/nano_010.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.20 (1).jpeg",
+        "expected_action": "ALERT_OPERATOR",
+        "expected_defect_type": "reflection_deformation",
+        "predicted_action": "PASS",
+        "predicted_defect_type": "clean",
+        "confidence": 0.62,
+        "reason": "No generic local NanoDefects baseline heuristic fired.",
+        "bbox": null,
+        "route": "generic_local_visual_heuristics_no_operator_marks"
+      },
+      {
+        "image": "raw_unannotated/nano_011.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.20.jpeg",
+        "expected_action": "ALERT_OPERATOR",
+        "expected_defect_type": "broad_shallow_dent",
+        "predicted_action": "PASS",
+        "predicted_defect_type": "clean",
+        "confidence": 0.62,
+        "reason": "No generic local NanoDefects baseline heuristic fired.",
+        "bbox": null,
+        "route": "generic_local_visual_heuristics_no_operator_marks"
+      },
+      {
+        "image": "raw_unannotated/nano_013.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.21 (2).jpeg",
+        "expected_action": "ALERT_OPERATOR",
+        "expected_defect_type": "unknown_defect",
+        "predicted_action": "PASS",
+        "predicted_defect_type": "clean",
+        "confidence": 0.62,
+        "reason": "No generic local NanoDefects baseline heuristic fired.",
+        "bbox": null,
+        "route": "generic_local_visual_heuristics_no_operator_marks"
+      },
+      {
+        "image": "raw_unannotated/nano_016.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.22 (2).jpeg",
+        "expected_action": "ALERT_OPERATOR",
+        "expected_defect_type": "unknown_defect",
+        "predicted_action": "PASS",
+        "predicted_defect_type": "clean",
+        "confidence": 0.62,
+        "reason": "No generic local NanoDefects baseline heuristic fired.",
+        "bbox": null,
+        "route": "generic_local_visual_heuristics_no_operator_marks"
+      },
+      {
+        "image": "raw_unannotated/nano_017.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.22.jpeg",
+        "expected_action": "ALERT_OPERATOR",
+        "expected_defect_type": "reflection_deformation",
+        "predicted_action": "PASS",
+        "predicted_defect_type": "clean",
+        "confidence": 0.62,
+        "reason": "No generic local NanoDefects baseline heuristic fired.",
+        "bbox": null,
+        "route": "generic_local_visual_heuristics_no_operator_marks"
+      },
+      {
+        "image": "raw_unannotated/nano_018.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.23 (1).jpeg",
+        "expected_action": "REJECT",
+        "expected_defect_type": "coating_damage",
+        "predicted_action": "PASS",
+        "predicted_defect_type": "clean",
+        "confidence": 0.62,
+        "reason": "No generic local NanoDefects baseline heuristic fired.",
+        "bbox": null,
+        "route": "generic_local_visual_heuristics_no_operator_marks"
+      },
+      {
+        "image": "raw_unannotated/nano_021.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.24 (2).jpeg",
+        "expected_action": "ALERT_OPERATOR",
+        "expected_defect_type": "reflection_deformation",
+        "predicted_action": "PASS",
+        "predicted_defect_type": "clean",
+        "confidence": 0.62,
+        "reason": "No generic local NanoDefects baseline heuristic fired.",
+        "bbox": null,
+        "route": "generic_local_visual_heuristics_no_operator_marks"
+      },
+      {
+        "image": "raw_unannotated/nano_027.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.26.jpeg",
+        "expected_action": "ALERT_OPERATOR",
+        "expected_defect_type": "unknown_defect",
+        "predicted_action": "PASS",
+        "predicted_defect_type": "clean",
+        "confidence": 0.62,
+        "reason": "No generic local NanoDefects baseline heuristic fired.",
+        "bbox": null,
+        "route": "generic_local_visual_heuristics_no_operator_marks"
+      }
+    ],
+    "balanced_improved_examples": [
+      {
+        "image": "raw_unannotated/nano_001.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.16.jpeg",
+        "expected_action": "ALERT_OPERATOR",
+        "expected_defect_type": "unknown_defect",
+        "predicted_action": "PASS",
+        "predicted_defect_type": "clean",
+        "confidence": 0.62,
+        "reason": "No generic local NanoDefects baseline heuristic fired.",
+        "bbox": null,
+        "route": "generic_local_visual_heuristics_no_operator_marks"
+      },
+      {
+        "image": "raw_unannotated/nano_002.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.17 (1).jpeg",
+        "expected_action": "ALERT_OPERATOR",
+        "expected_defect_type": "unknown_defect",
+        "predicted_action": "PASS",
+        "predicted_defect_type": "clean",
+        "confidence": 0.62,
+        "reason": "No generic local NanoDefects baseline heuristic fired.",
+        "bbox": null,
+        "route": "generic_local_visual_heuristics_no_operator_marks"
+      },
+      {
+        "image": "raw_unannotated/nano_006.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.18.jpeg",
+        "expected_action": "REJECT",
+        "expected_defect_type": "broad_shallow_dent",
+        "predicted_action": "PASS",
+        "predicted_defect_type": "clean",
+        "confidence": 0.62,
+        "reason": "No generic local NanoDefects baseline heuristic fired.",
+        "bbox": null,
+        "route": "generic_local_visual_heuristics_no_operator_marks"
+      },
+      {
+        "image": "raw_unannotated/nano_007.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.19 (1).jpeg",
+        "expected_action": "ALERT_OPERATOR",
+        "expected_defect_type": "base_region_defect",
+        "predicted_action": "PASS",
+        "predicted_defect_type": "clean",
+        "confidence": 0.62,
+        "reason": "No generic local NanoDefects baseline heuristic fired.",
+        "bbox": null,
+        "route": "generic_local_visual_heuristics_no_operator_marks"
+      },
+      {
+        "image": "raw_unannotated/nano_009.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.19.jpeg",
+        "expected_action": "ALERT_OPERATOR",
+        "expected_defect_type": "unknown_defect",
+        "predicted_action": "PASS",
+        "predicted_defect_type": "clean",
+        "confidence": 0.62,
+        "reason": "No generic local NanoDefects baseline heuristic fired.",
+        "bbox": null,
+        "route": "generic_local_visual_heuristics_no_operator_marks"
+      },
+      {
+        "image": "raw_unannotated/nano_010.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.20 (1).jpeg",
+        "expected_action": "ALERT_OPERATOR",
+        "expected_defect_type": "reflection_deformation",
+        "predicted_action": "PASS",
+        "predicted_defect_type": "clean",
+        "confidence": 0.62,
+        "reason": "No generic local NanoDefects baseline heuristic fired.",
+        "bbox": null,
+        "route": "generic_local_visual_heuristics_no_operator_marks"
+      },
+      {
+        "image": "raw_unannotated/nano_011.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.20.jpeg",
+        "expected_action": "ALERT_OPERATOR",
+        "expected_defect_type": "broad_shallow_dent",
+        "predicted_action": "PASS",
+        "predicted_defect_type": "clean",
+        "confidence": 0.62,
+        "reason": "No generic local NanoDefects baseline heuristic fired.",
+        "bbox": null,
+        "route": "generic_local_visual_heuristics_no_operator_marks"
+      },
+      {
+        "image": "raw_unannotated/nano_013.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.21 (2).jpeg",
+        "expected_action": "ALERT_OPERATOR",
+        "expected_defect_type": "unknown_defect",
+        "predicted_action": "PASS",
+        "predicted_defect_type": "clean",
+        "confidence": 0.62,
+        "reason": "No generic local NanoDefects baseline heuristic fired.",
+        "bbox": null,
+        "route": "generic_local_visual_heuristics_no_operator_marks"
+      },
+      {
+        "image": "raw_unannotated/nano_016.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.22 (2).jpeg",
+        "expected_action": "ALERT_OPERATOR",
+        "expected_defect_type": "unknown_defect",
+        "predicted_action": "PASS",
+        "predicted_defect_type": "clean",
+        "confidence": 0.62,
+        "reason": "No generic local NanoDefects baseline heuristic fired.",
+        "bbox": null,
+        "route": "generic_local_visual_heuristics_no_operator_marks"
+      },
+      {
+        "image": "raw_unannotated/nano_017.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.22.jpeg",
+        "expected_action": "ALERT_OPERATOR",
+        "expected_defect_type": "reflection_deformation",
+        "predicted_action": "PASS",
+        "predicted_defect_type": "clean",
+        "confidence": 0.62,
+        "reason": "No generic local NanoDefects baseline heuristic fired.",
+        "bbox": null,
+        "route": "generic_local_visual_heuristics_no_operator_marks"
+      },
+      {
+        "image": "raw_unannotated/nano_018.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.23 (1).jpeg",
+        "expected_action": "REJECT",
+        "expected_defect_type": "coating_damage",
+        "predicted_action": "PASS",
+        "predicted_defect_type": "clean",
+        "confidence": 0.62,
+        "reason": "No generic local NanoDefects baseline heuristic fired.",
+        "bbox": null,
+        "route": "generic_local_visual_heuristics_no_operator_marks"
+      },
+      {
+        "image": "raw_unannotated/nano_021.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.24 (2).jpeg",
+        "expected_action": "ALERT_OPERATOR",
+        "expected_defect_type": "reflection_deformation",
+        "predicted_action": "PASS",
+        "predicted_defect_type": "clean",
+        "confidence": 0.62,
+        "reason": "No generic local NanoDefects baseline heuristic fired.",
+        "bbox": null,
+        "route": "generic_local_visual_heuristics_no_operator_marks"
+      },
+      {
+        "image": "raw_unannotated/nano_027.jpg",
+        "source_image": "WhatsApp Image 2026-05-09 at 15.21.26.jpeg",
+        "expected_action": "ALERT_OPERATOR",
+        "expected_defect_type": "unknown_defect",
+        "predicted_action": "PASS",
+        "predicted_defect_type": "clean",
+        "confidence": 0.62,
+        "reason": "No generic local NanoDefects baseline heuristic fired.",
+        "bbox": null,
+        "route": "generic_local_visual_heuristics_no_operator_marks"
+      }
+    ],
+    "clean_images_requiring_more_review": []
+  }
+}

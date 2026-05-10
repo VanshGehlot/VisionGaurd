@@ -1,0 +1,19 @@
+Hugging Face Space / Gradio UI
+        ↓
+Scanner Agent
+        ↓
+AMD MI300X + ROCm + vLLM
+        ↓
+Qwen2.5-VL-7B-Instruct
+        ↓
+Defect JSON Parser
+        ↓
+Severity + Action Engine
+        ↓
+SQLite Event Log
+        ↓
+MindsDB Analytics Layer
+        ↓
+Reporter Agent
+        ↓
+Shift Quality Report
