@@ -6,11 +6,13 @@ VisionGuard turns factory camera images into reliable QA decisions — **PASS**,
 
 VisionGuard is a general industrial visual inspection platform. Bottle manufacturing is our real-world proof use case. NanoDefects is our factory-specific adaptation case study.
 
+![VisionGuard industrial visual inspection platform](docs/assets/readme/visionguard-cover.png)
+
 ## Quick Links
 
 - Live Demo: https://vision-amd.vercel.app
 - Demo Video: `<add link>`
-- Pitch Deck: `<add link>`
+- Pitch Deck: [VisionGuard platform deck](https://drive.google.com/file/d/1KnJcfHVO2jEsvbkt9h3P1sthmIFduesJ/view?usp=sharing)
 - Technical Walkthrough: `<add link>`
 - Proof Artifacts: [`docs/proof/`](docs/proof/)
 
@@ -60,6 +62,8 @@ The goal is not to be a narrow bottle detector. The goal is a general inspection
 
 ## Architecture
 
+![VisionGuard end-to-end architecture](docs/assets/readme/visionguard-architecture.png)
+
 ```text
 Factory Camera / Image Upload
         ↓
@@ -103,6 +107,8 @@ VisionGuard is designed around the AMD inference stack:
 This matters for industrial inspection because factories need low-latency, repeatable inference that can be integrated into real operations software. VisionGuard exposes runtime status, model name, endpoint state, latency, and route metadata so the demo remains truthful about whether inference is live, demo, or offline.
 
 ## Live Demo Flow
+
+![VisionGuard camera-to-decision workflow](docs/assets/readme/visionguard-workflow.png)
 
 Recommended judge flow:
 
