@@ -1,282 +1,207 @@
----
-title: VisionGuard - Industrial AI Defect Detection
-emoji: 🔍
-colorFrom: blue
-colorTo: green
-sdk: gradio
-sdk_version: 4.44.1
-app_file: app.py
-pinned: true
-license: mit
----
+# VisionGuard — Industrial Visual AI on AMD MI300X
 
-# VisionGuard — Real-Time Industrial Visual AI on AMD MI300X
+VisionGuard turns factory camera images into reliable QA decisions — **PASS**, **REVIEW**, or **STOP_LINE** — using multimodal AI served on **AMD MI300X** with **ROCm** and **vLLM**.
 
-VisionGuard is an industrial AI inspection system that turns factory camera frames into real-time quality decisions: **PASS**, **ALERT_OPERATOR**, or **STOP_LINE**.
+`AMD MI300X · ROCm · vLLM · Qwen2.5-VL · FastAPI · React · SQLite · Factory Adaptation`
 
-It uses **Qwen2.5-VL-7B-Instruct** served through **vLLM on AMD MI300X** with **ROCm**, wrapped inside a production-style inspection console, reporting layer, and factory-adaptation workflow.
+VisionGuard is a general industrial visual inspection platform. Bottle manufacturing is our real-world proof use case. NanoDefects is our factory-specific adaptation case study.
 
-## What We Built
+## Quick Links
 
-VisionGuard demonstrates how modern vision-language models can be used for industrial quality inspection across products such as bottles, metal parts, PCB boards, and hardware components.
+- Live Demo: https://vision-amd.vercel.app
+- Demo Video: `<add link>`
+- Pitch Deck: `<add link>`
+- Technical Walkthrough: `<add link>`
+- Proof Artifacts: [`docs/proof/`](docs/proof/)
 
-The system supports:
+## 30-Second Summary
 
-- Real-time image inspection
-- Batch/video frame inspection
-- Defect classification and severity routing
-- Operator review and STOP_LINE decisions
-- Annotated inspection overlays
-- Shift reports and event logs
-- AMD runtime visibility
-- Factory-specific adaptation workflow
-- Model routing between base and factory-specialized models
+VisionGuard is an operator-assisted industrial inspection system for turning product images into factory decisions. It accepts camera frames or uploaded images, sends them through Qwen2.5-VL served by vLLM on AMD MI300X, returns structured inspection JSON, and routes the result into PASS, REVIEW, or STOP_LINE. The product includes a premium React inspection console, FastAPI backend, event logging, shift reports, operations alerts, and runtime visibility. AMD matters because the system is designed around high-throughput multimodal inference on MI300X with ROCm. NanoDefects proves how a factory-specific dataset can be imported, evaluated, and used to reduce false PASS risk before future adapter training. The current system is demo-ready for operator-assisted QA; production conveyor auto-release and trained LoRA adapters are future roadmap items.
 
-## Why It Matters
+## The Problem
 
-Industrial inspection is still heavily dependent on manual checks or narrow classical vision systems. These systems often fail when product shape, lighting, defect type, or factory conditions change.
+Factory quality inspection is still difficult to scale.
 
-VisionGuard takes a more flexible approach:
+- Manual inspection is inconsistent across operators, shifts, lighting, and product variants.
+- Subtle defects on reflective materials are hard to catch reliably.
+- Traditional vision systems can be rigid, expensive to reconfigure, and brittle when products change.
+- Factories need decisions and workflows, not only model predictions.
+- A false PASS is the highest-risk failure mode because a defective product can leave the line unnoticed.
 
-```text
-Factory image/video frame
-→ Vision-language inspection
-→ Safety-aware decision
-→ Operator/reporting workflow
-→ Factory-specific adaptation path
-```
+Industrial teams need an inspection system that can reason about defects, explain likely causes, route actions, and adapt to each factory’s product line over time.
 
-The goal is not just defect detection, but a broader **factory quality intelligence platform**.
+## The Solution
 
-## Core Demo Flow
+VisionGuard is an end-to-end industrial visual QA platform.
 
-```text
-1. Upload or select a product image
-2. VisionGuard sends it to Qwen-VL on AMD MI300X
-3. The model returns structured inspection output
-4. Backend applies safety and verification logic
-5. UI shows PASS / ALERT_OPERATOR / STOP_LINE
-6. Inspection event is logged
-7. Reports and operations alerts update automatically
-```
+It combines:
+
+- image or factory camera input
+- multimodal defect reasoning
+- structured JSON inspection output
+- PASS / REVIEW / STOP_LINE routing
+- visual evidence and approximate defect regions
+- event logging and inspection history
+- shift reports and operations alerts
+- factory-specific dataset onboarding and adaptation workflow
+
+The goal is not to be a narrow bottle detector. The goal is a general inspection layer that can start zero-shot, then become more factory-specific through real customer data.
+
+## What VisionGuard Does
+
+| Capability | What it does |
+| --- | --- |
+| Live Inspection | Runs product images through Qwen-VL using the AMD/vLLM runtime when available |
+| Operator Decisions | Converts model output into PASS, REVIEW, or STOP_LINE actions |
+| Evidence Regions | Shows approximate defect regions when localization is available |
+| Reporting | Logs inspections, generates shift reports, and surfaces operations alerts |
+| Runtime Visibility | Shows latency, endpoint state, model route, and AMD runtime metadata |
+| Factory Adaptation | Provides dataset onboarding, readiness analysis, model registry, and future adapter/LoRA path |
 
 ## Architecture
 
 ```text
-React/Vite Frontend
+Factory Camera / Image Upload
+        ↓
+React Inspection Workspace
         ↓
 FastAPI Backend
         ↓
-Inspection Orchestrator
+Qwen2.5-VL via vLLM
         ↓
-Qwen-VL via vLLM OpenAI-compatible API
+AMD MI300X + ROCm
         ↓
-AMD MI300X + ROCm Runtime
+Structured Inspection JSON
         ↓
-SQLite Event Store + Reporting Layer
+Safety / Routing Layer
+        ↓
+PASS / REVIEW / STOP_LINE
+        ↓
+SQLite Events + Reports + Adaptation Studio
 ```
-
-### Main Components
 
 | Layer | Role |
 | --- | --- |
-| React/Vite | Premium inspection console and dashboard |
-| FastAPI | API wrapper for inspection, reports, adaptation, metrics |
-| Qwen-VL | Vision-language model for defect reasoning |
-| vLLM | High-performance model serving |
-| AMD MI300X | GPU acceleration through ROCm |
-| SQLite | Local event, report, and adaptation data store |
-| Safety Net | Prevents risky false-PASS behavior |
-| Reporter | Shift reports, events, operations alerts |
-| Adaptation Studio | Factory-specific dataset/model onboarding workflow |
+| Frontend | React/Vite product shell with landing, dashboard, inspection, reports, settings, and adaptation pages |
+| API layer | FastAPI wrapper exposing inspection, reporting, metrics, health, and adaptation endpoints |
+| Model serving | OpenAI-compatible vLLM endpoint serving Qwen2.5-VL |
+| Safety/routing layer | Applies false-PASS safeguards, route metadata, PASS verification, and operational action mapping |
+| Data/reporting layer | SQLite-backed event store, metrics, report generation, and operations alerts |
+| Adaptation layer | Dataset intake, readiness reports, model registry, routing metadata, and feedback loop concept |
 
-## Key Features
+## AMD Stack
 
-### 1. Live Visual Inspection
+VisionGuard is designed around the AMD inference stack:
 
-VisionGuard accepts product images and returns structured decisions:
+| Component | Role in VisionGuard |
+| --- | --- |
+| AMD MI300X | GPU compute for multimodal inference |
+| ROCm | AMD acceleration and runtime layer |
+| vLLM | Model serving layer with OpenAI-compatible `/v1/chat/completions` API |
+| Qwen2.5-VL-7B-Instruct | Multimodal visual reasoning model for defect inspection |
 
-```json
-{
-  "action": "STOP_LINE",
-  "defect_type": "crack",
-  "severity": "critical",
-  "confidence": 0.91,
-  "location": "upper neck region"
-}
-```
+This matters for industrial inspection because factories need low-latency, repeatable inference that can be integrated into real operations software. VisionGuard exposes runtime status, model name, endpoint state, latency, and route metadata so the demo remains truthful about whether inference is live, demo, or offline.
 
-Supported actions:
+## Live Demo Flow
 
-```text
-PASS
-ALERT_OPERATOR
-STOP_LINE
-```
+Recommended judge flow:
 
-### 2. Safety-Aware Post Processing
+1. Open the landing page and dashboard.
+2. Run a clean product inspection.
+3. Run a defective product inspection.
+4. Review the event log.
+5. Open reports and operations alerts.
+6. Open Factory Adaptation Studio.
+7. Select a model route such as Base VisionGuard, PCB Adapter v1, or NanoDefects Bottle QA.
 
-The model output is verified through additional safety logic to reduce dangerous false PASS outcomes.
+Expected behavior:
 
-The system handles:
+- clean product → `PASS`
+- subtle or uncertain defect → `REVIEW` / `ALERT_OPERATOR`
+- severe structural defect → `STOP_LINE`
+- reports and dashboard metrics update after scans
 
-- low-confidence PASS results
-- visible contamination patterns
-- structural defect hints
-- operator-review fallback
-- clear debug fields for every override
+## NanoDefects Case Study
 
-### 3. Inspection Overlay
+NanoDefects is a small real-world dataset collected from our own stainless-steel bottle factory. It is used as a factory-specific adaptation case study, not as a claimed trained LoRA model.
 
-The UI generates visual inspection overlays:
+The dataset contains real QA issues such as dents, impact pits, scratches, coating damage, shoulder deformation, base defects, internal dents, and reflection-based surface deformation.
 
-- PASS badge for clean products
-- REVIEW badge for uncertain cases
-- localized box for contamination clusters
-- approximate region for structural defects
+### Dataset Policy
 
-The overlay is intentionally honest: it avoids fake full-image boxes and marks approximate regions when exact localization is not available.
+- Total collected images: `50`
+- Raw unmarked evaluation images: `26`
+- Annotated reference-only images excluded from evaluation: `24`
+- Raw-only evaluation is used for truthful model testing.
+- Annotated/circled images are retained only as label references, not model evidence.
 
-### 4. Reports and Operations Alerts
+This split matters because using marked images as model input would inflate results and fail on real factory images.
 
-Every inspection can be logged and summarized into:
+### Current Raw-Only Evaluation
 
-- event history
-- shift report
-- defect trends
-- stop-line events
-- operations alerts
-- AMD runtime metrics
+| Metric | Result |
+| --- | ---: |
+| Raw images | 26 |
+| Annotated reference-only images excluded | 24 |
+| Generic baseline false PASS | 13 |
+| Safe mode false PASS | 0 |
+| Balanced mode false PASS | 0 |
+| Balanced clean PASS accuracy | 83.33% |
+| Defect recall | 100% |
 
-This makes the app feel like a real factory command center, not only a model demo.
+This is not a fake LoRA claim. It is the evaluation and safety layer before future factory-specific adapter training.
 
-## Factory Adaptation Studio
-
-VisionGuard also includes a factory-specific adaptation workflow.
-
-The idea:
+NanoDefects currently demonstrates a tuned evaluation route:
 
 ```text
-Generic zero-shot inspection
-→ customer uploads factory dataset
-→ dataset readiness analysis
-→ LoRA/adapter estimate
-→ model registry
-→ deployed factory route
-→ feedback loop
-```
-
-For the demo, the adaptation story uses a PCB inspection use case inspired by the **DeepPCB** dataset and a real steel-bottle QA pilot dataset called **NanoDefects**.
-
-The adaptation page shows how a customer can:
-
-1. choose a product/use case
-2. attach a dataset or model link
-3. define defect classes and severity rules
-4. analyze dataset readiness
-5. estimate adapter training effort
-6. deploy a factory-specific model route
-7. use that route from the inspection page
-
-Current implementation includes the adaptation workflow, registry, and routing layer. Full GPU LoRA training is planned as the next production step.
-
-### NanoDefects Steel Bottle QA
-
-NanoDefects is a real factory QA image set from a steel bottle / thermos / food jar line. It has been normalized under:
-
-```text
-data/nano_defects/
-  raw_unannotated/
-  annotated_reference_only/
-  labels.json
-  annotated_reference_labels.json
-  README.md
-  splits/
-```
-
-The current NanoDefects route is intentionally truth-safe:
-
-```text
+NanoDefects Bottle QA — Evaluation Route
 Status: baseline evaluated
-Adapter: prototype training pending
-Route: NanoDefects Bottle QA evaluation route
+Adapter training: pending
+Recommended mode: operator-assisted QA
 ```
 
-The current deterministic evaluation compares three routes:
+The next production step is collecting a more balanced raw dataset before training factory-specific adapters.
 
-| Route | False PASS | Defect recall | Clean PASS accuracy |
-| --- | ---: | ---: | ---: |
-| Generic raw baseline | 13 | 35.00% | 83.33% |
-| NanoDefects safe mode | 0 | 100% | 0% |
-| NanoDefects balanced mode | 0 | 100% | 83.33% |
+## Current Status
 
-Raw-image proof is saved in `docs/proof/nano-defects-raw-baseline.json` and `docs/proof/nano-defects-raw-vs-tuned.json`. Annotated/circled images are stored only as label references under `annotated_reference_only/` and are not used as model or evaluation input.
+| Area | Status |
+| --- | --- |
+| Live AMD inference | Working when the vLLM tunnel is active |
+| React frontend | Ready |
+| FastAPI backend | Ready |
+| Gradio fallback | Available |
+| SQLite event logging | Ready |
+| Reports and operations alerts | Ready |
+| NanoDefects raw evaluation | Ready |
+| Factory Adaptation Studio | Ready as an onboarding/evaluation workflow |
+| LoRA / Adapter training | Future scope |
+| Production conveyor deployment | Future scope |
 
-The earlier full-pilot live Qwen/AMD NanoDefects baseline was also run separately through the `NanoDefects Bottle QA — Evaluation Route` before the raw/reference split:
+## Results / Proof
 
-```text
-Live Qwen/AMD baseline: 50/50 images processed
-False PASS: 12
-Defect recall: 72.73%
-Clean PASS accuracy: 66.67%
-```
+Proof artifacts are stored in [`docs/proof/`](docs/proof/).
 
-The deterministic raw tuned-policy proof remains separate from the live Qwen baseline. `NanoDefects Bottle QA — Evaluation Route` is not a trained LoRA adapter. A production LoRA/adapter should wait until the factory has collected a more balanced raw dataset, with a minimum next target of 100 clean + 300 defect images and an ideal pilot target of 500-1,000 labeled images.
+Important proof categories:
 
-## AMD Usage
+- vLLM model endpoint proof
+- health and runtime proof
+- live smoke outputs
+- frontend screenshots
+- event log and report proof
+- NanoDefects raw baseline proof
+- NanoDefects raw vs tuned proof
+- Gradio fallback proof
 
-VisionGuard is designed around AMD acceleration:
+Key NanoDefects files:
 
-```text
-AMD MI300X
-ROCm
-vLLM
-Qwen2.5-VL-7B-Instruct
-```
+- [`docs/proof/nano-defects-raw-baseline.json`](docs/proof/nano-defects-raw-baseline.json)
+- [`docs/proof/nano-defects-raw-baseline.md`](docs/proof/nano-defects-raw-baseline.md)
+- [`docs/proof/nano-defects-raw-vs-tuned.json`](docs/proof/nano-defects-raw-vs-tuned.json)
+- [`docs/proof/nano-defects-raw-vs-tuned.md`](docs/proof/nano-defects-raw-vs-tuned.md)
 
-The live model endpoint is served through vLLM using an OpenAI-compatible API.
+## How to Run
 
-Example endpoint:
-
-```text
-http://localhost:8000/v1/chat/completions
-```
-
-## Project Structure
-
-```text
-.
-├── api.py                     # FastAPI app and API routes
-├── app.py                     # Gradio fallback UI
-├── main.py                    # CLI inspection pipeline
-├── agents/
-│   ├── reporter.py            # Reports and operations alerts
-│   └── adaptation.py          # Factory adaptation workflow
-├── data/
-│   └── nano_defects/          # Raw-only NanoDefects evaluation dataset
-├── model/
-│   ├── qwen_client.py         # vLLM/Qwen API client
-│   ├── prompts.py             # Inspection prompts/schema
-│   └── json_parser.py         # Structured output fallback
-├── utils/
-│   ├── annotation.py          # Inspection overlays
-│   ├── safety_net.py          # False-PASS safety layer
-│   ├── pass_verifier.py       # PASS verification logic
-│   └── visual_heuristics.py   # Visual defect heuristics
-├── db/
-│   └── sqlite_client.py       # Local event store
-├── frontend/
-│   └── src/                   # React/Vite frontend
-├── scripts/                   # Validation, dataset prep, evaluation
-├── tests/                     # Regression and safety tests
-└── docs/
-    ├── proof/                 # Demo proof artifacts
-    └── archive/               # Design iterations and legacy static UI
-```
-
-## Running Locally
-
-### 1. Install backend dependencies
+### 1. Install Backend Dependencies
 
 ```bash
 python3 -m venv .venv
@@ -284,7 +209,7 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-### 2. Install frontend dependencies
+### 2. Install and Build Frontend
 
 ```bash
 cd frontend
@@ -293,7 +218,7 @@ npm run build
 cd ..
 ```
 
-### 3. Run FastAPI
+### 3. Run FastAPI in Demo Mode
 
 ```bash
 DEMO_MODE=true \
@@ -307,17 +232,18 @@ Open:
 http://127.0.0.1:8013
 ```
 
-## Running With AMD MI300X / vLLM
+### 4. Run with AMD MI300X / vLLM
 
-Set the model endpoint:
+Start or tunnel the vLLM endpoint, then set:
 
 ```bash
 export VLLM_URL=http://localhost:8000/v1/chat/completions
 export MODEL_NAME=Qwen/Qwen2.5-VL-7B-Instruct
 export DEMO_MODE=false
+export SQLITE_DB_PATH=/tmp/visionguard_live.db
 ```
 
-Then run:
+Run:
 
 ```bash
 python -m uvicorn api:app --host 127.0.0.1 --port 8013
@@ -329,103 +255,131 @@ Health check:
 curl http://127.0.0.1:8013/health
 ```
 
-Expected live state:
+Expected live state when the vLLM tunnel is active:
 
 ```json
 {
   "api": "online",
   "demo_mode": false,
-  "vllm_reachable": true
+  "vllm_reachable": true,
+  "database": "connected"
 }
 ```
 
-## Validation
-
-Run tests:
+### 5. Run Validation
 
 ```bash
+python -m compileall api.py agents model utils db tests scripts
 python -m pytest
+cd frontend && npm run build
 ```
 
-Build frontend:
+### 6. Run NanoDefects Evaluation
 
 ```bash
-cd frontend
-npm run build
+python scripts/evaluate_nano_defects.py
 ```
 
-Compile check:
-
-```bash
-python -m compileall api.py agents model utils db tests
-```
-
-## Demo Script
-
-Recommended judge demo:
+This writes:
 
 ```text
-1. Show VisionGuard landing/dashboard
-2. Open Image Inspection
-3. Run clean product → PASS
-4. Run defective product → ALERT_OPERATOR / STOP_LINE
-5. Show overlay + factory intelligence explanation
-6. Open reports/events
-7. Show AMD runtime and live vLLM status
-8. Open Factory Adaptation Studio
-9. Analyze DeepPCB/PCB dataset route
-10. Show NanoDefects Bottle QA — Evaluation Route
-11. Open inspection with PCB Adapter or NanoDefects route selected
+docs/proof/nano-defects-raw-baseline.json
+docs/proof/nano-defects-raw-baseline.md
+docs/proof/nano-defects-raw-vs-tuned.json
+docs/proof/nano-defects-raw-vs-tuned.md
 ```
 
-## What Makes This Different
+## API Endpoints
 
-VisionGuard is not just a UI around a model.
+| Endpoint | Purpose |
+| --- | --- |
+| `/health` | Runtime, database, demo/live, and vLLM status |
+| `/inspect-image` | Image inspection |
+| `/inspect-video` | Video/batch frame inspection |
+| `/events` | Inspection history |
+| `/report` | Shift quality report |
+| `/metrics` | Runtime and inspection metrics |
+| `/operations-alert` | Factory operations alert |
+| `/adaptation/overview` | Factory adaptation status |
+| `/adaptation/model-options` | Available model routes for inspection |
+| `/adaptation/analyze-dataset` | Dataset readiness and adapter estimate |
+| `/adaptation/deploy-model` | Model route deployment metadata |
 
-It combines:
-
-- real AMD MI300X inference
-- structured VLM inspection
-- safety-aware decision logic
-- operator-facing UI
-- reporting and alerting
-- video/batch inspection
-- factory-specific adaptation workflow
-- model registry and routing concept
-
-This creates a path from hackathon prototype to real industrial AI platform.
-
-## Current Status
-
-Implemented:
+## Repository Structure
 
 ```text
-✅ Live Qwen-VL inspection path
-✅ AMD MI300X/vLLM integration
-✅ React inspection console
-✅ FastAPI backend
-✅ SQLite logging
-✅ Reports and operations alerts
-✅ Defect overlay generation
-✅ Safety-net and PASS verification
-✅ Factory Adaptation Studio
-✅ Model selector and route metadata
-✅ Regression tests
+api.py                  FastAPI app and route definitions
+app.py                  Gradio fallback UI
+main.py                 CLI inspection pipeline
+agents/                 Scanner, logger, reporter, and adaptation workflow
+model/                  Qwen/vLLM client, prompts, and JSON parsing
+utils/                  Annotation, safety net, PASS verifier, visual heuristics
+db/                     SQLite schema and client
+frontend/               React/Vite premium product shell
+scripts/                Validation, vLLM checks, dataset prep, evaluation
+tests/                  Regression, safety, annotation, adaptation tests
+data/nano_defects/      Raw-only NanoDefects dataset and labels
+docs/proof/             Validation outputs, screenshots, and proof artifacts
+docs/archive/           Design iterations and legacy static UI reference
 ```
 
-Planned next:
+## Product Roadmap
 
-```text
-□ Real DeepPCB LoRA/adapter training
-□ Saved adapter weights
-□ Adapter loading into vLLM
-□ Real before/after evaluation
-□ Multi-factory deployment
-□ Supabase/cloud backend for production users
-```
+### Short Term
 
-## Team Note
+- improve raw NanoDefects coverage
+- collect more clean and defect-balanced data
+- add conveyor camera input
+- improve defect localization
+- expand regression tests across more product families
 
-VisionGuard was built for the AMD Developer Hackathon to demonstrate how AMD MI300X can power practical, real-time, vision-language industrial inspection workflows.
+### Mid Term
 
-The project is designed to be demoable today and expandable into a production-ready factory quality platform.
+- train factory-specific LoRA/adapters
+- support multiple product lines and factory routes
+- add operator feedback loop into dataset versioning
+- package deployment for factory edge or cloud runtime
+
+### Long Term
+
+- multi-factory model routing
+- continuous learning QA system
+- support PCBs, metal parts, packaging, and electronics
+- integrate production MES / QA systems
+- fixed-camera conveyor deployment with controlled lighting
+
+## Honest Limitations
+
+VisionGuard is production-minded, but it does not overclaim.
+
+- It is not production auto-release ready yet.
+- LoRA/adapters have not been trained or loaded into vLLM yet.
+- NanoDefects is a small pilot dataset.
+- Visual localization is approximate, not pixel-perfect segmentation.
+- Reflective metal defects are hard and need more controlled data.
+- Operator-assisted QA is the current recommended workflow.
+- Conveyor deployment requires fixed cameras, lighting control, more data, and factory validation.
+
+## Why This Can Become a Real Product
+
+Every factory has QA pain, but each product line has different tolerances, lighting, defects, and operator workflows. VisionGuard is product-line agnostic at the platform level and factory-specific at the adaptation layer.
+
+The product direction is strong because:
+
+- multimodal inspection can start without custom model training
+- safety routing makes output operational, not just predictive
+- reporting makes results useful to operators and managers
+- adaptation studio creates a customer-specific data and model moat
+- AMD MI300X + ROCm + vLLM provides a scalable inference path
+- future adapters can improve accuracy for each factory’s real product line
+
+VisionGuard is a path from zero-shot inspection to factory-specific quality intelligence.
+
+## Credits
+
+Built by Vansh Gehlot
+
+- GitHub: https://github.com/VanshGehlot
+- LinkedIn: https://www.linkedin.com/in/vanshgehlot/
+- Website: https://vanshgehlot.us
+- Email: gehlotvansh111@gmail.com

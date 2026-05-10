@@ -5,7 +5,7 @@
   "input_scope": "raw_unannotated_only",
   "excluded_input_scope": "annotated_reference_only",
   "live_qwen_vl_used": false,
-  "created_at": "2026-05-10T16:40:22.078209+00:00",
+  "created_at": "2026-05-10T22:20:26.394864+00:00",
   "total_images": 26,
   "clean_count": 6,
   "defect_count": 20,
