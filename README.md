@@ -252,6 +252,8 @@ http://localhost:8000/v1/chat/completions
 ├── agents/
 │   ├── reporter.py            # Reports and operations alerts
 │   └── adaptation.py          # Factory adaptation workflow
+├── data/
+│   └── nano_defects/          # Raw-only NanoDefects evaluation dataset
 ├── model/
 │   ├── qwen_client.py         # vLLM/Qwen API client
 │   ├── prompts.py             # Inspection prompts/schema
@@ -265,9 +267,11 @@ http://localhost:8000/v1/chat/completions
 │   └── sqlite_client.py       # Local event store
 ├── frontend/
 │   └── src/                   # React/Vite frontend
+├── scripts/                   # Validation, dataset prep, evaluation
 ├── tests/                     # Regression and safety tests
 └── docs/
-    └── proof/                 # Demo proof artifacts
+    ├── proof/                 # Demo proof artifacts
+    └── archive/               # Design iterations and legacy static UI
 ```
 
 ## Running Locally
